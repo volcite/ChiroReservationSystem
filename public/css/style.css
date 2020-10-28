@@ -1,0 +1,7 @@
+.border-green{
+    border: solid;
+    border: 1.5px solid;
+    border-color: #0E8088;
+    border-radius: 8px; /* 半径が8pxの角丸 */
+}
+
