@@ -6,7 +6,7 @@
         <h2>手と手整骨院予約サイト</h2>
     </div>
     <div class=" border-green text-left ">
-        
+
             <h3 class="m-2">
                 手と手整骨院
             </h3>

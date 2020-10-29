@@ -1,4 +1,4 @@
-
+<!--ヘッダー記述-->
 <header class="mb-5">
     <nav class="navbar navbar-expand-lg navbar-light " style="background-color:#0E8088">
         <a class="navbar-brand" href="/"><img src="/image/logoblack.png" alt="" width="50" height="50"></a>

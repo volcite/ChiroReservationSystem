@@ -1,3 +1,4 @@
+<!--フッター記述-->
 <footer class="mt-5">
         <nav class="navbar navbar-light" style="background-color:#0E8088">
         
