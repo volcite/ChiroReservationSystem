@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Rules\ZenkakuNumber;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -49,12 +50,15 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:30'],
+            'name' => ['max:30', 'required', 'string', ],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
-            'phone_number' => ['required', 'max:15', 'string'],
+            'phone_number' => ['required', 'max:15', 'string', new ZenkakuNumber],
             'gender' => ['required'],
             'birthday' => ['required', 'date'],
-            'password' => ['required', 'string', 'max:30', 'confirmed'],
+            'password' => ['required', 'string', 'max:30', 'confirmed', 'alpha_dash'],
+        ],
+        [
+            'gender.required' => '性別を選択してください'
         ]);
     }
 
