@@ -11,6 +11,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+    @guest
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
@@ -18,5 +19,19 @@
                 <li class="nav-item"><a href="" class="nav-link">ログイン</a></li>
             </ul>
         </div>
+
+      
+    @else
+            <div class="collapse navbar-collapse" id="nav-bar">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="" class="nav-link">予約確認</a></li>
+                <li class="nav-item"><a href="" class="nav-link">名前</a></li>
+                <li class="nav-item"><a href="" class="nav-link">ログアウト</a></li>
+            </ul>
+        </div>
+        
+    @endguest
+
     </nav>
 </header>
