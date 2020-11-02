@@ -16,7 +16,7 @@
             <h2 class="h3 card-title text-center mt-2">お客様情報</h2>
 
             <div class="card-text">
-              <form method="POST" action="/users/store">
+              <form method="POST" action="{{ route('newUser.confirm') }}">
                 @csrf
                 <div class="md-form">
                   <label for="name">氏名</label>
@@ -45,7 +45,7 @@
 				        <div class="md-form">
                   <label for="phone_number">電話番号</label>
                   <input class="form-control" type="text" id="phone_number" name="phone_number" required value="{{ old('phone_number') }}" >
-				          <p><small>-(ハイフン</small></p>
+				          <p><small>-(ハイフン)は不要です</small></p>
                   @if ($errors->has('phone_number'))
                     <div class="alert alert-danger">
                       <ul>

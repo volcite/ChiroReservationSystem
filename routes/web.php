@@ -11,8 +11,8 @@
 |
 */
 Route::get('/users/create', 'Auth\RegisterController@showRegistrationForm');
-Route::post('/users/store', 'Auth\RegisterController@register');
-
+Route::post('/users/confirm', 'Auth\RegisterController@showConfirmation')->name('newUser.confirm');
+Route::post('/users/register', 'Auth\RegisterController@register')->name('newUser.register');
 
 Route::get('/', function () {
     return view('welcome');

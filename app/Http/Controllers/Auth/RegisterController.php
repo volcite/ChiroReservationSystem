@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Rules\ZenkakuNumber;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -61,6 +62,13 @@ class RegisterController extends Controller
             'gender.required' => '性別を選択してください'
         ]);
     }
+
+    protected function showConfirmation (Request $request)
+    {   
+        $this->validator($request->all())->validate();
+        $newUser = new User($request->all());
+        return view('auth.confirm', compact('newUser'));
+    } 
 
     /**
      * Create a new user instance after a valid registration.
