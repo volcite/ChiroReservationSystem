@@ -18,11 +18,10 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone_number');
-            // TODO genderの型をintにするには
-            $table->string('gender');
+            $table->tinyInteger('gender');
             $table->date('birthday');
             $table->string('password');
-            $table->integer('authority')->default(1);
+            $table->tinyInteger('authority')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

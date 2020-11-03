@@ -63,12 +63,30 @@ class RegisterController extends Controller
         ]);
     }
 
+    //新規登録画面から送られてきたデータのバリデート、セッション登録、画面返し
     protected function showConfirmation (Request $request)
-    {   
+    {
         $this->validator($request->all())->validate();
-        $newUser = new User($request->all());
-        return view('auth.confirm', compact('newUser'));
-    } 
+        $user = new User($request->all()); 
+        $gender_ja = $user->gender_to_ja($user->gender);
+        // TODO セッション関係未完
+         //userというキーでセッションに書き込み
+        // $request->session()->put('user', '$user');
+        return view('auth.confirm', compact('user', 'gender_ja'));
+
+    }
+
+    // protected function userRegister (Request $request)
+    // {
+    //     // $user = $request->session()->get('user');
+
+    //     $user->save();
+    //     $this->guard()->login($user);
+
+    //     return $this->registered($request, $user)
+    //                     ?: redirect($this->redirectPath());
+
+    // }
 
     /**
      * Create a new user instance after a valid registration.
@@ -77,7 +95,7 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
+    {   
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
