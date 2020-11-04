@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Rules\ZenkakuNumber;
+use App\Http\Requests\UserValidation;
+// use App\Rules\ZenkakuNumber;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -48,25 +50,25 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['max:30', 'required', 'string', ],
-            'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
-            'phone_number' => ['required', 'max:15', 'string', new ZenkakuNumber],
-            'gender' => ['required'],
-            'birthday' => ['required', 'date'],
-            'password' => ['required', 'string', 'max:30', 'confirmed', 'alpha_dash'],
-        ],
-        [
-            'gender.required' => '性別を選択してください'
-        ]);
-    }
+    // protected function validator(array $data)
+    // {
+    //     return Validator::make($data, [
+    //         'name' => ['max:30', 'required', 'string', ],
+    //         'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
+    //         'phone_number' => ['required', 'max:15', 'string', new ZenkakuNumber],
+    //         'gender' => ['required'],
+    //         'birthday' => ['required', 'date'],
+    //         'password' => ['required', 'string', 'max:30', 'confirmed', 'alpha_dash'],
+    //     ],
+    //     [
+    //         'gender.required' => '性別を選択してください'
+    //     ]);
+    // }
 
     //新規登録画面から送られてきたデータのバリデート、セッション登録、画面返し
-    protected function showConfirmation (Request $request)
+    protected function showConfirmation (UserValidation $request)
     {
-        $this->validator($request->all())->validate();
+        // $this->validator($request->all())->validate();
         $user = new User($request->all()); 
         $gender_ja = $user->gender_to_ja($user->gender);
         // TODO セッション関係未完
@@ -76,17 +78,19 @@ class RegisterController extends Controller
 
     }
 
-    // protected function userRegister (Request $request)
-    // {
-    //     // $user = $request->session()->get('user');
+    
+    protected function userRegister (UserValidation $request)
+    {
+        // $user = $request->session()->get('user');
 
-    //     $user->save();
-    //     $this->guard()->login($user);
+        event(new Registered($user = $this->create($request->all())));
 
-    //     return $this->registered($request, $user)
-    //                     ?: redirect($this->redirectPath());
+        $this->guard()->login($user);
 
-    // }
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+
+    }
 
     /**
      * Create a new user instance after a valid registration.
