@@ -11,7 +11,7 @@
 |
 */
 Route::get('/users/create', 'Auth\RegisterController@showRegistrationForm');
-Route::post('/users/store', 'Auth\RegisterController@register');
+Route::post('/users/register', 'Auth\RegisterController@registerUser');
 
 
 Route::get('/', function () {

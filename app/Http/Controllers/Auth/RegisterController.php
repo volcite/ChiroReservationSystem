@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Rules\ZenkakuNumber;
+use App\Http\Requests\UserValidation;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -41,27 +41,15 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    protected function registerUser (UserValidation $request)
     {
-        return Validator::make($data, [
-            'name' => ['max:30', 'required', 'string', ],
-            'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
-            'phone_number' => ['required', 'max:15', 'string', new ZenkakuNumber],
-            'gender' => ['required'],
-            'birthday' => ['required', 'date'],
-            'password' => ['required', 'string', 'max:30', 'confirmed', 'alpha_dash'],
-        ],
-        [
-            'gender.required' => '性別を選択してください'
-        ]);
-    }
+        event(new Registered($user = $this->create($request->all())));
 
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+    }
     /**
      * Create a new user instance after a valid registration.
      *

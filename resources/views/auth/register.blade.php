@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
@@ -16,7 +17,7 @@
             <h2 class="h3 card-title text-center mt-2">お客様情報</h2>
 
             <div class="card-text">
-              <form method="POST" action="/users/store">
+              <form method="POST" action="/users/register">
                 @csrf
                 <div class="md-form">
                   <label for="name">氏名</label>
