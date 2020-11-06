@@ -15,5 +15,5 @@
 //     return view('welcome');
 // });
 
-Route::get('/','PostsController@index')->name('top');
+Route::get('/','ReservationsController@index')->name('/');
 

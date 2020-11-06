@@ -24,7 +24,7 @@
     @else
 
         <div class="text-center">
-        <h2>手と手整骨院予約サイト</h2>
+            <h2>手と手整骨院予約サイト</h2>
         </div>
 
         <div>
