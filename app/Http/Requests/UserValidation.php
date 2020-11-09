@@ -29,15 +29,16 @@ class UserValidation extends FormRequest
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
             'phone_number' => ['required', 'max:15', 'string', new ZenkakuNumber],
             'gender' => ['required'],
-            'birthday' => ['required', 'date'],
-            'password' => ['required', 'string', 'max:30', 'confirmed', 'alpha_dash'],
+            'birthday' => ['required', 'date', 'before:today'],
+            'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed', 'alpha_dash'],
         ];
     }
 
     public function messages()
     {
         return [
-            'gender.required' => '性別を選択してください'
+            'gender.required' => '性別を選択してください',
+            'birthday.before' => '本日より前の日付を入力してください'
         ];
     }
 }
