@@ -10,10 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/','ReservationsController@index')->name('/');
+
+//ユーザー新規登録
 Route::get('/users/create', 'Auth\RegisterController@showRegistrationForm');
 Route::post('/users/confirm', 'Auth\RegisterController@showConfirmation')->name('newUser.confirm');
 Route::post('/users/register', 'Auth\RegisterController@userRegister')->name('newUser.register');
-
-Route::get('/', function () {
-    return view('welcome');
-});

@@ -22,7 +22,7 @@ return [
     'alpha_num'            => ':attributeはアルファベット数字がご利用できます。',
     'array'                => ':attributeは配列でなくてはなりません。',
     'before'               => ':attributeには、:dateより前の日付をご利用ください。',
-    'before_or_equal'      => ':attributeには、:date以前の日付をご利用ください。',
+    'before_or_equal'      => ':attributeには、:date以前の日付を入力してください。',
     'between'              => [
         'numeric' => ':attributeは、:minから:maxの間で指定してください。',
         'file'    => ':attributeは、:min kBから、:max kBの間で指定してください。',
@@ -87,7 +87,7 @@ return [
     'min'                  => [
         'numeric' => ':attributeには、:min以上の数字を指定してください。',
         'file'    => ':attributeには、:min kB以上のファイルを指定してください。',
-        'string'  => ':attributeは、:min文字以上で指定してください。',
+        'string'  => ':min字以上で入力してください。',
         'array'   => ':attributeは:min個以上指定してください。',
     ],
     'not_in'               => '選択された:attributeは正しくありません。',
