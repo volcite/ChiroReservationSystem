@@ -14,6 +14,9 @@ Route::get('/users/create', 'Auth\RegisterController@showRegistrationForm');
 Route::post('/users/register', 'Auth\RegisterController@registerUser');
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/','ReservationsController@index')->name('/');
+
