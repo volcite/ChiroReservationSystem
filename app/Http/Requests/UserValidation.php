@@ -30,7 +30,7 @@ class UserValidation extends FormRequest
             'phone_number' => ['required', 'max:15', 'string', new ZenkakuNumber],
             'gender' => ['required'],
             'birthday' => ['required', 'date', 'before:today'],
-            'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed', 'alpha_dash'],
+            'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed', 'regex:/^[a-zA-Z0-9]+$/'],
         ];
     }
 
@@ -38,7 +38,8 @@ class UserValidation extends FormRequest
     {
         return [
             'gender.required' => '性別を選択してください',
-            'birthday.before' => '本日より前の日付を入力してください'
+            'birthday.before' => '本日より前の日付を入力してください',
+            'password.regex' => '半角英数字で入力してください',
         ];
     }
 }

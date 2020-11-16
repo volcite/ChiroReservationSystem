@@ -16,3 +16,6 @@ Route::get('/','ReservationsController@index')->name('/');
 Route::get('/users/create', 'Auth\RegisterController@showRegistrationForm');
 Route::post('/users/register', 'Auth\RegisterController@registerUser');
 
+Route::view('/register2', 'auth.register_2');
+
+Route::view('/register3', 'auth.register_3');
