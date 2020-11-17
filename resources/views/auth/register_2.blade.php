@@ -4,7 +4,6 @@
 
 <table class="table text-center">
 	<h2 class="h3 mt-2 mb-4">お客様情報登録</h2>
-
 	<form action="/users/register" method="post">
 	@csrf
 			<tbody>
@@ -102,8 +101,8 @@
 										@endforeach
 								</ul>
 						@endif
-						<input class="form-control" type="date" id="birthday" name="birthday"  value="{{ old('birthday') }}" placeholder="例)2000/11/11" required>
-						<small class="float-left">例)2000/11/11</small>
+						<input class="form-control" type="date" id="birthday" name="birthday"  value="{{ old('birthday') }}" required>
+						<small class="float-left">例)1970/01/01</small>
 					</td>
 				</tr>
 				<!-- 生年月日 -->
