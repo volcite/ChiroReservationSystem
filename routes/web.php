@@ -14,6 +14,8 @@
 Route::get('/','ReservationsController@index')->name('/');
 
 //ユーザー新規登録
-Route::get('/users/create', 'Auth\RegisterController@showRegistrationForm');
+Route::get('/users/create', 'Auth\RegisterController@showRegistrationForm')->name('users.register');
 Route::post('/users/confirm', 'Auth\RegisterController@showConfirmation')->name('newUser.confirm');
 Route::post('/users/register', 'Auth\RegisterController@userRegister')->name('newUser.register');
+
+

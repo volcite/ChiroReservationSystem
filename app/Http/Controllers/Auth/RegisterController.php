@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserValidation;
-// use App\Rules\ZenkakuNumber;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -44,44 +44,31 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    // protected function validator(array $data)
-    // {
-    //     return Validator::make($data, [
-    //         'name' => ['max:30', 'required', 'string', ],
-    //         'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
-    //         'phone_number' => ['required', 'max:15', 'string', new ZenkakuNumber],
-    //         'gender' => ['required'],
-    //         'birthday' => ['required', 'date'],
-    //         'password' => ['required', 'string', 'max:30', 'confirmed', 'alpha_dash'],
-    //     ],
-    //     [
-    //         'gender.required' => '性別を選択してください'
-    //     ]);
-    // }
-
     //新規登録画面から送られてきたデータのバリデート、セッション登録、画面返し
     protected function showConfirmation (UserValidation $request)
     {
-        // $this->validator($request->all())->validate();
         $user = new User($request->all()); 
         $gender_ja = $user->gender_to_ja($user->gender);
-        // TODO セッション関係未完
+        $birthday_ja = Carbon::create($user->birthday)->format('Y年m月d日');
+        $hidden_password = preg_replace('/[a-zA-Z0-9]/', '*', $user->password);
+
+        // TODO session関係未完
          //userというキーでセッションに書き込み
         // $request->session()->put('user', '$user');
-        return view('auth.confirm', compact('user', 'gender_ja'));
+        return view('auth.confirm', compact('user', 'gender_ja', 'hidden_password', 'birthday_ja'));
 
     }
 
-    
-    protected function userRegister (UserValidation $request)
-    {
-        // $user = $request->session()->get('user');
+    //userのDBへの登録と/画面へリダイレクト
+    protected function userRegister (Request $request)
+    {   
+        //戻るボタンを押したら
+        if($request->get("back"))
+        {
+            return redirect()->route('users.register')->withInput();
+        }
+
+        // TODO :session系　$user = $request->session()->get('user');
 
         event(new Registered($user = $this->create($request->all())));
 
