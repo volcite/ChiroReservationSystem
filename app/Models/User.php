@@ -39,13 +39,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    //genderデータの0 or 1を日本語で返す関数
+    //genderデータ0 or 1を日本語で返す
     public function gender_to_ja($gender_num)
     {
-        if ($gender_num == '0'){
-                return '男性';
-            }else{
-                return '女性';
-            }
+        return $gender_num == '0' ? '男性' :  '女性';
     }
 }

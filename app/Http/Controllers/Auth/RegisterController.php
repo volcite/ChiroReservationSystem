@@ -44,7 +44,7 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    //新規登録画面から送られてきたデータのバリデート、セッション登録、画面返し
+    //新規登録画面から送られてきたデータのバリデート、セッション登録、確認画面返し
     protected function showConfirmation (UserValidation $request)
     {
         $user = new User($request->all()); 
@@ -55,20 +55,21 @@ class RegisterController extends Controller
         // TODO session関係未完
          //userというキーでセッションに書き込み
         // $request->session()->put('user', '$user');
+
         return view('auth.confirm', compact('user', 'gender_ja', 'hidden_password', 'birthday_ja'));
 
     }
 
-    //userのDBへの登録と/画面へリダイレクト
+    //新規ユーザーのDBへの登録と／画面へリダイレクト
     protected function userRegister (Request $request)
     {   
         //戻るボタンを押したら
         if($request->get("back"))
         {
-            return redirect()->route('users.register')->withInput();
+            return redirect()->route('users.create')->withInput();
         }
 
-        // TODO :session系　$user = $request->session()->get('user');
+        // TODO :session系 $user = $request->session()->get('user');
 
         event(new Registered($user = $this->create($request->all())));
 

@@ -35,7 +35,7 @@
     <!-- 性別 -->
     <tr class="row"> 
       <th class="col-sm-3 table-active">
-        <label for="name">メールアドレス</label>
+        <label for="name">性別</label>
       </th>
       <td class="col-sm-5 p-4 border-right">{{ $gender_ja }}</td>
     </tr>
@@ -62,7 +62,7 @@
     </tr>
 
       <!-- 実際送るデータ -->
-      <form method="POST" action="{{ route('newUser.register') }}" >
+      <form method="POST" action="{{ route('users.register') }}" >
         @csrf 
         @foreach( $user->getAttributes() as $key => $value )
         <input class="form-control" type="hidden" name="{{ $key }}" value="{{ $value }}" />
@@ -72,7 +72,7 @@
     <tr class="row">
       <td class="col-sm-8 p-4">
         <button type="submit" class="btn btn-secondary btn-lg" name="back" value="true">戻る</button>
-        <button class="btn btn-success btn-lg active" style="background: #0E8088" type="submit">ユーザー登録する</button>
+        <button class="btn btn-success btn-lg active ml-4" style="background: #0E8088" type="submit">ユーザー登録する</button>
       </td>
     </tr>
       </form>

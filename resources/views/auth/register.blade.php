@@ -1,107 +1,145 @@
 @extends('layout')
 
 @section('content')
-  <div class="mx-auto col-8">
-    <div class="card mt-3">
-      <div class="card-body text-center">
-        <h3 class="mt-2 mb-4 card-title">お客様情報登録</h3>
-        
-        <div class="card-text">
-          <form method="POST" action="{{ route('newUser.confirm') }}">
-            @csrf
-            <div class="form-group row">
-           
-              <label for="name" class="col-form-label col-sm-3">氏名 <span class="badge badge-danger float-right">必須</span>
-</label>
+<h2 class="h3 mt-2 mb-4 text-center ">お客様情報登録</h2>
+<p class="font-weight-bold offset-md-2"><span class="text-danger">※</span>は必須入力項目です</p>
+<table class="table text-center offset-md-2">
+	<form action="{{ route('users.confirm') }}" method="post">
+	@csrf
+			<tbody>
+				<!-- 氏名 -->
+				<tr class="row"> 
+					<th class="col-sm-3 table-active">
+						<label for="name">氏名<span class="text-danger ml-2">※</span></label>
+					</th>
+					<td class="col-sm-5 p-4 border-right">
+						<input class="form-control  @error('name') is-invalid @enderror" type="text" id="name" name="name" placeholder="例)山田 花子" value="{{ old('name') }}" required >
+						@error('name')
+							<ul class="list-unstyled text-left invalid-feedback" role="alert">
+									@foreach ($errors->get('name') as $error )
+											<li class="font-weight-bold" >{{ $error }}</li>
+									@endforeach
+							</ul>
+						@enderror
+					</td>
+				</tr>
+				<!-- 氏名 -->
 
-              <input class="form-control col-sm-8" type="text" id="name" name="name" required value="{{ old('name') }}">
-            </div>
-            @if ($errors->has('name'))
-                <ul class="list-unstyled">
-                  <li class="text-danger">{{ $errors->first('name') }}</li>
-                </ul>
-            @endif
-            
-            <div class="form-group row">
-              <label for="email" class="col-form-label col-sm-3">メールアドレス<span class="badge badge-danger float-right">必須</span></label>
-              <input class="form-control col-sm-8" type="text" id="email" name="email" required value="{{ old('email') }}" >
-            </div>
-            @if ($errors->has('email'))
-                <ul class="list-unstyled">
-                    @foreach ($errors->get('email') as $error )
-                        <li  class="text-danger">{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-            <div class="form-group row">
-              <label for="phone_number" class="col-form-label col-sm-3">電話番号<span class="badge badge-danger float-right">必須</span></label>
-              <input class="form-control col-sm-8" type="text" id="phone_number" name="phone_number" required value="{{ old('phone_number') }}" >
-              <small class="ml-4 text-danger">ハイフンは不要です</small>
-            </div>
-            @if ($errors->has('phone_number'))
-                <ul class="list-unstyled">
-                    @foreach ($errors->get('phone_number') as $error )
-                        <li  class="text-danger">{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-            <fieldset class="form-group">
-              <div class="row">
-                <legend class="col-form-label col-sm-3">性別<span class="badge badge-danger float-right">必須</span></legend>
-                  <div class="col-sm-8 row">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" id="male" name="gender" value='0' {{ old('gender') == '0' ? 'checked' : '' }} required >
-                      <label class="form-check-label" for="male">男性</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" id="female" name="gender" value='1' {{ old('gender') == '1' ? 'checked' : '' }} required >
-                      <label class="form-check-label" for="female">女性</label>
-                    </div>
-                  </div>
-              </div>
-            </fieldset>
-            @if ($errors->has('gender'))
-                <ul class="list-unstyled">
-                  <li  class="text-danger">{{ $errors->first('gender') }}</li>
-                </ul>
-            @endif
-            <div class="form-group row">
-              <label for="birthday" class="col-form-label col-sm-3">生年月日<span class="badge badge-danger float-right">必須</span></label>
-              <input class="form-control col-sm-8" type="date" id="birthday" name="birthday" required value="{{ old('birthday') }}" >
-            </div>
-            @if ($errors->has('birthday'))
-                <ul class="list-unstyled">
-                    @foreach ($errors->get('birthday') as $error )
-                        <li  class="text-danger">{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-            <div class="form-group row">
-              <label for="password" class="col-form-label col-sm-3">パスワード<span class="badge badge-danger float-right">必須</span></label>
-              <input class="form-control col-sm-8" type="password" id="password" name="password" required>
-            </div>
-            @if ($errors->has('password'))
-                <ul class="list-unstyled">
-                    @foreach ($errors->get('password') as $error )
-                        <li  class="text-danger">{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-            <div class="form-group row">
-              <label for="password_confirmation" class="col-form-label col-sm-3">パスワード(確認)<span class="badge badge-danger float-right">必須</span></label>
-              <input class="form-control col-sm-8" type="password" id="password_confirmation" name="password_confirmation" required>
-            </div>
-           
-            
-            <button class="btn" style="background: #0E8088" type="submit">登録</button>
-          </form>
+				<!-- メールアドレス -->
+				<tr class="row">
+					<th class="col-sm-3 table-active">
+						<label for="email">メールアドレス<span class="text-danger ml-2">※</span></label>
+					</th>
+					<td class="col-sm-5 p-4 border-right">
+						<input class="form-control @error('email') is-invalid @enderror" type="text" id="email" name="email" placeholder="例)aaa@xxx.com" value="{{ old('email') }}" required >
+						@error('email')
+							<ul class="list-unstyled  text-left invalid-feedback" role="alert">
+									@foreach ($errors->get('email') as $error )
+											<li class="font-weight-bold" >{{ $error }}</li>
+									@endforeach
+							</ul>
+						@enderror
+					</td>
+				</tr>
+				<!-- メールアドレス -->
 
-          <!-- ! ログインルート -->
-          <div class="text-center mt-2">
-            <a href="#" >すでに登録済みの方はこちら</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+				<!-- 電話番号 -->
+				<tr class="row">
+					<th class="col-sm-3 table-active">
+						<label for="phone_number" >電話番号(ハイフンなし)<span class="text-danger ml-2">※</span></label>
+					</th>
+					<td class="col-sm-5 p-4 border-right">
+						<input class="form-control @error('phone_number') is-invalid @enderror" type="text" id="phone_number" name="phone_number" placeholder="例)09012345678"  value="{{ old('phone_number') }}" required >
+						@error('phone_number')
+						<ul class="list-unstyled text-left invalid-feedback" role="alert">
+							@foreach ($errors->get('phone_number') as $error )
+									<li class="font-weight-bold" >{{ $error }}</li>
+							@endforeach
+						</ul>
+						@enderror
+					</td>
+				</tr>
+				<!-- 電話番号 -->
+
+				<!-- 性別 -->
+				<tr class="row">
+					<th class="col-sm-3 table-active">
+						<label>性別<span class="text-danger ml-2">※</span></label>
+					</th>	
+					<td class="col-sm-5 text-left p-4 border-right">
+						<div class="form-check form-check-inline ">
+							<input class="form-check-input  @error('gender') is-invalid @enderror" type="radio" id="male" name="gender" value="0" {{ old('gender') == '0' ? 'checked' : '' }} required>
+							<label class="form-check-label" for="male">男性</label>
+						</div>
+						<div class="form-check form-check-inline ml-3">
+							<input class="form-check-input  @error('gender') is-invalid @enderror" type="radio" id="female" name="gender" value="1" {{ old('gender') == '1' ? 'checked' : '' }} required >
+							<label class="form-check-label" for="female">女性</label>
+						</div>
+						@error('gender')
+						<ul class="list-unstyled text-left invalid-feedback" role="alert">
+							<li class=" font-weight-bold" >{{ $error }}</li>
+						</ul>
+						@enderror
+					</td>
+				</tr>
+				<!-- 性別 -->
+
+				<!-- 生年月日 -->
+				<tr class="row">
+					<th class="col-sm-3 table-active">
+						<label for="birthday">生年月日<span class="text-danger ml-2">※</span></label>
+					</th>
+					<td class="col-sm-5 p-4 border-right">
+						<small class="float-left mb-2">例)1970/01/01</small>
+						<input class="form-control  @error('birthday') is-invalid @enderror" type="date" id="birthday" name="birthday"  value="{{ old('birthday') }}" required>
+						@error('birthday')
+						<ul class="list-unstyled text-left invalid-feedback" role="alert">
+							@foreach ($errors->get('birthday') as $error )
+								<li class="font-weight-bold">{{ $error }}</li>
+							@endforeach
+						</ul>
+						@enderror
+					</td>
+				</tr>
+				<!-- 生年月日 -->
+
+				<!-- パスワード -->
+				<tr class="row">
+					<th class="col-sm-3 table-active">
+						<label for="password" >パスワード<span class="text-danger ml-2">※</span></label>
+					</th>
+					<td class="col-sm-5 p-4 border-right">
+						<input class="form-control  @error('password') is-invalid @enderror" type="password" id="password" name="password" placeholder="8～30文字の半角英数字" required>
+						@error('password')
+						<ul class=" list-unstyled text-left invalid-feedback" role="alert">
+							@foreach ($errors->get('password') as $error )
+								<li class=" font-weight-bold" >{{ $error }}</li>
+							@endforeach
+						</ul>
+						@enderror
+					</td>
+				</tr>
+
+				<tr class="row">
+					<th class="col-sm-3 table-active">
+						<label for="password_confirmation" >パスワード(確認)<span class="text-danger ml-2">※</span></label>
+					</th>
+					<td class="col-sm-5 p-4 border-right">
+						<input class="form-control" type="password" id="password_confirmation" name="password_confirmation" placeholder="もう一度入力してください"required>
+					</td>
+				</tr>
+				<!-- パスワード -->
+
+				<tr class="row">
+					<td class="col-sm-8 p-4">
+						<button class="btn btn-lg active px-4" style="background: #0E8088" type="submit">確認画面へ</button>
+						<!-- ! ログインルート -->
+						<div class="mt-2">
+						<a href="#" >すでに登録済みの方はこちら</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+	</form>
+</table>
 @endsection
