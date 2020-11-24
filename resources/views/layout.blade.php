@@ -13,14 +13,10 @@
 
         <!--ヘッダー読み込み-->
         @include('commons.header')
-    
         
-        <div class="container">
+        <div class="container backgroundImage">
             @yield('content')
         </div>
-           
-        
-
 
         <!--フッター読み込み-->
         @include('commons.footer')

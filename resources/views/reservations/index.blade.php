@@ -7,7 +7,19 @@
             <h2>手と手整骨院予約サイト</h2>
         </div>
 
-        <div class=" border-green text-left ">
+        <div>
+            <div class="text-center">
+                <a href="?ym={{ $prev }}" class="h2">&lt;</a>
+                <span class="month color-black h4">{{ $month }}</span>
+                <a href="?ym={{ $next }}" class="h2">&gt;</a>
+            </div>
+
+            <div class="text-center"> 
+                {!! $calendar !!}
+            </div>
+        </div>
+
+        <div class=" border-green text-left mt-5">
 
                 <h3 class="m-2">
                     手と手整骨院
