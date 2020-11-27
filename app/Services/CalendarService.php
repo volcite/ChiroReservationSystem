@@ -28,6 +28,8 @@ class CalendarService
             $calendar .= '<th class="calendarHeader text-white" style="background-color:#4c586f">'.$heading.'</th>';
         }
 
+        $holidays = \Yasumi\Yasumi::create('Japan', $dt->year, 'ja_JP');
+
         $calendar .= '</thead>';
 
         $calendar .= '<tbody><tr>';
@@ -50,24 +52,29 @@ class CalendarService
                     if($comp->lt($comp_now)){
                         $calendar .= '<td class="day" style="background-color:#ddd;">'.$dt->day.'</td>';
                     }else{
-                    //ループの日と今日を比較
-                    if ($comp->eq($comp_now)) {
-                        //同じなので緑色の背景にする
-                        $calendar .= '<td class="h5 text-white" style="background-color:#008b8b;">'.$dt->day.'</td>';
-                    }else{
-                        switch ($dt->format('N')) {
-                            case 6:
-                                $calendar .= '<td class="h5" style="background-color:#b0e0e6"><a href="./reservation/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
-                                break;
-                            case 7:
-                                $calendar .= '<td class="h5" style="background-color:#f08080"><a href="./reservation/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
-                                break;
-                            default:
-                            $calendar .= '<td class="h5" ><a href="./reservation/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
-                                break;
+                            //ループの日と今日を比較
+                            if ($comp->eq($comp_now)) {
+                                //同じなので緑色の背景にする
+                                $calendar .= '<td class="h5 text-white" style="background-color:#008b8b;">'.$dt->day.'</td>';
+                            //ループの日と祝日のループを比較
+                            }elseif($holidays->isHoliday(new Carbon($dt->year."-".$dt->month."-".$dt->day))){
+                                //同じであれば赤色の背景にする
+                                $calendar .= '<td class="h5" style="background-color:#f08080">'.$dt->day.'</td>';
+                            }else{
+                                switch ($dt->format('N')) {
+                                    case 6:
+                                        $calendar .= '<td class="h5" style="background-color:#b0e0e6"><a href="./reservation/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
+                                        break;
+                                    case 7:
+                                        $calendar .= '<td class="h5" style="background-color:#f08080">'.$dt->day.'</td>';
+                                        break;
+                                    default:
+                                    $calendar .= '<td class="h5" ><a href="./reservation/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
+                                        break;
+                                }
                             }
                         }
-                    }
+                        
                     $dt->addDay();
                 }
             
