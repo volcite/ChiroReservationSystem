@@ -22,10 +22,10 @@ class CalendarService
         //曜日の配列作成
         $headings = ['月','火','水','木','金','土','日'];
     
-        $calendar = '<table class="calendar-table">';
+        $calendar = '<table class="table">';
         $calendar .= '<thead >';
         foreach($headings as $heading){
-            $calendar .= '<th class="calendarHeader text-white" style="background-color:#4c586f">'.$heading.'</th>';
+            $calendar .= '<th style="background:#0E8088">'.$heading.'</th>';
         }
 
         $holidays = \Yasumi\Yasumi::create('Japan', $dt->year, 'ja_JP');
@@ -40,7 +40,7 @@ class CalendarService
                 for ($i = 1; $i <= $daysInMonth; $i++) {
                     if($i==1){
                         if ($dt->format('N')!= 1) {
-                            $calendar .= '<td class ="h5" colspan="'.($dt->format('N')-1).'"></td>'; //1日が月曜じゃない場合はcospanでその分あける
+                            $calendar .= '<td colspan="'.($dt->format('N')-1).'"></td>'; //1日が月曜じゃない場合はcospanでその分あける
                         }
                     }
                     if($dt->format('N') == 1){
@@ -50,26 +50,26 @@ class CalendarService
                     $comp_now = Carbon::today(); //今日
 
                     if($comp->lt($comp_now)){
-                        $calendar .= '<td class="day" style="background-color:#ddd;">'.$dt->day.'</td>';
+                        $calendar .= '<td class="day h5" style="background-color:#ddd;">'.$dt->day.'</td>';
                     }else{
                             //ループの日と今日を比較
                             if ($comp->eq($comp_now)) {
                                 //同じなので緑色の背景にする
-                                $calendar .= '<td class="h5 text-white" style="background-color:#008b8b;">'.$dt->day.'</td>';
+                                $calendar .= '<td class="day h5" style="background-color:#008b8b;">'.$dt->day.'</td>';
                             //ループの日と祝日のループを比較
                             }elseif($holidays->isHoliday(new Carbon($dt->year."-".$dt->month."-".$dt->day))){
                                 //同じであれば赤色の背景にする
-                                $calendar .= '<td class="h5" style="background-color:#f08080">'.$dt->day.'</td>';
+                                $calendar .= '<td class="day h5" style="background-color:#f08080">'.$dt->day.'</td>';
                             }else{
                                 switch ($dt->format('N')) {
                                     case 6:
-                                        $calendar .= '<td class="h5" style="background-color:#b0e0e6"><a href="./reservation/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
+                                        $calendar .= '<td class="day h5" style="background-color:#b0e0e6"><a href="./reservation/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
                                         break;
                                     case 7:
-                                        $calendar .= '<td class="h5" style="background-color:#f08080">'.$dt->day.'</td>';
+                                        $calendar .= '<td class="day h5" style="background-color:#f08080">'.$dt->day.'</td>';
                                         break;
                                     default:
-                                    $calendar .= '<td class="h5" ><a href="./reservation/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
+                                    $calendar .= '<td class="day h5" ><a href="./reservation/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
                                         break;
                                 }
                             }

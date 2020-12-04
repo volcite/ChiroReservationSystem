@@ -7,14 +7,14 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <title text-color-while>手と手整骨院予約サイト</title>
+        <title text-color-while>手と手整骨院Web予約</title>
     </head>
-    <body>
+    <body class="backgroundImage">
 
         <!--ヘッダー読み込み-->
         @include('commons.header')
         
-        <div class="container backgroundImage">
+        <div class="container">
             @yield('content')
         </div>
 
