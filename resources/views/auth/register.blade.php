@@ -4,7 +4,7 @@
 <h2 class="h3 mt-2 mb-4 text-center ">お客様情報登録</h2>
 <p class="font-weight-bold offset-md-2"><span class="text-danger">※</span>は必須入力項目です</p>
 <table class="table text-center offset-md-2">
-	<form action="/users/register" method="post">
+	<form action="{{ route('users.register') }}" method="post">
 	@csrf
 			<tbody>
 				<!-- 氏名 -->

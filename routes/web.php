@@ -13,8 +13,7 @@
 Route::get('/','ReservationsController@index')->name('/');
 
 //ユーザー新規登録
-Route::get('/users/create', 'Auth\RegisterController@showRegistrationForm');
-Route::post('/users/register', 'Auth\RegisterController@registerUser');
+Route::get('/users/create', 'Auth\RegisterController@showRegistrationForm')->name('users.create');
+Route::post('/users/register', 'Auth\RegisterController@registerUser')->name('users.register');
 
-//仮ルート
 Route::get('/reservation/{year}/{month}/{day}', 'ReservationsController@create')->name('reservation.create');
