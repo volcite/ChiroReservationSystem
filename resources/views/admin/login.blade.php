@@ -8,7 +8,7 @@
             @csrf
 
             <div class="form-group row mt-4">
-                <label for="email" class="col-md-4 text-right">メールアドレス</label>
+                <label for="email" class="col-md-4 text-md-right">メールアドレス</label>
                 <div class="col-md-5">
                     <input type="email" id="email" class="form-control @error('email') is-invalid @enderror login_form" name="email" value="{{ old('email') }}" required autocomplete="email" aria-describedby="emailHelp"/>
 
@@ -21,7 +21,7 @@
             </div>
 
             <div class="form-group row my-4">
-                <label for="password" class="col-md-4 text-right">パスワード</label>
+                <label for="password" class="col-md-4 text-md-right">パスワード</label>
                 <div class="col-md-5">
                     <input type="password" id="password" class="form-control @error('password') is-invalid @enderror login_form" name="password"/>
 
