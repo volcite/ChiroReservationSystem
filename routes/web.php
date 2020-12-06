@@ -17,3 +17,13 @@ Route::get('/users/create', 'Auth\RegisterController@showRegistrationForm')->nam
 Route::post('/users/register', 'Auth\RegisterController@registerUser')->name('users.register');
 
 
+//管理者側↓
+Route::get('/admin/login', 'Admin\LoginController@showLoginForm')->name('admin.login');
+Route::post('/admin/login', 'Admin\LoginController@login');
+    //管理者ログイン後アクセスするもの
+Route::group(['middleware' => ['auth', 'can:admin']], function(){
+    Route::get('/admin/index', function(){
+        return view('admin.index');
+    })->name('admin.index');
+    Route::post('/admin/logout', 'Admin\LoginController@logout')->name('admin.logout');
+});
