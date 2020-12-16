@@ -16,6 +16,16 @@ Route::get('/','ReservationsController@index')->name('/');
 Route::get('/users/create', 'Auth\RegisterController@showRegistrationForm')->name('users.create');
 Route::post('/users/register', 'Auth\RegisterController@registerUser')->name('users.register');
 
+Route::get('/create', function () {
+    return view('create');
+});
+
+Route::post('reservation', function () {
+    return view('reservation');
+})->name('reservation');
+
+//Route::get('/','ReservationsController@index')->name('/');
+//Route::get('create','reservations@create')->name('create');
 
 //管理者側↓
 Route::get('/admin/login', 'Admin\LoginController@showLoginForm')->name('admin.login');
