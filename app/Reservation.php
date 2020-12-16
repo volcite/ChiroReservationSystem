@@ -1,0 +1,10 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Reservation extends Model
+{
+    protected $fillable = ['reservation_date', 'time_id', 'cource_id', 'name', 'age', 'gender', 'email', 'phone_number'];
+}
