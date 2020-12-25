@@ -13,6 +13,7 @@ class ReservationTableSeeder extends Seeder
     {
         DB::table('reservations')->insert([
             'reservation_date' => '2021-3-9',
+            'time_id' => 3,
             'course_id' => 3,
             'name' => '佐々木明子',
             'age' => 53,
@@ -22,6 +23,7 @@ class ReservationTableSeeder extends Seeder
         ]);
         DB::table('reservations')->insert([
             'reservation_date' => '2021-3-25',
+            'time_id' => 2,
             'course_id' => 3,
             'name' => '小林卓',
             'age' => 34,
