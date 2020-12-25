@@ -16,6 +16,7 @@ class CreateReservationsTable extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamp('reservation_date');
+            $table->bigInteger('time_id')->unsigned()->index();
             $table->bigInteger('course_id')->unsigned()->index();
             $table->string('name');
             $table->string('age');
@@ -25,6 +26,7 @@ class CreateReservationsTable extends Migration
             $table->timestamps();
 
             $table->foreign('course_id')->references('id')->on('courses');
+            $table->foreign('time_id')->references('id')->on('times');
         });
     }
 
