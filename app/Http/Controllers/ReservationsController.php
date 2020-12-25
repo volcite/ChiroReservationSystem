@@ -10,7 +10,7 @@ class ReservationsController extends Controller
 {
     public function index() {
         return view('reservations.index', [
-        'calendar'         => Calendar::getCalendar(),
+        'calendar'      => Calendar::getCalendar(),
         'month'         => Calendar::getMonth(),
         'prev'          => Calendar::getPrev(),
         'next'          => Calendar::getNext(),

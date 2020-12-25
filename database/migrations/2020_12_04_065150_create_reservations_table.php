@@ -16,7 +16,7 @@ class CreateReservationsTable extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamp('reservation_date');
-            $table->bigInteger('cource_id')->unsigned()->index();
+            $table->bigInteger('course_id')->unsigned()->index();
             $table->string('name');
             $table->string('age');
             $table->string('gender');
@@ -24,7 +24,7 @@ class CreateReservationsTable extends Migration
             $table->integer('phone_number');
             $table->timestamps();
 
-            $table->foreign('cource_id')->references('id')->on('cources')->onDelete('cascade');
+            $table->foreign('course_id')->references('id')->on('courses');
         });
     }
 
