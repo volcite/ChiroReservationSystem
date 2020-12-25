@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CourceTableSeeder extends Seeder
+class CourseTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,28 +12,28 @@ class CourceTableSeeder extends Seeder
     public function run()
     {
         DB::table('courses')->insert([
-            'cource_name' => '全身の調整',
+            'course_name' => '全身の調整',
         ]);
         DB::table('courses')->insert([
-            'cource_name' => '骨盤のゆがみ',
+            'course_name' => '骨盤のゆがみ',
         ]);
         DB::table('courses')->insert([
-            'cource_name' => 'リフトアップ',
+            'course_name' => 'リフトアップ',
         ]);
         DB::table('courses')->insert([
-            'cource_name' => 'ダイエットプログラム',
+            'course_name' => 'ダイエットプログラム',
         ]);
         DB::table('courses')->insert([
-            'cource_name' => '慢性腰痛',
+            'course_name' => '慢性腰痛',
         ]);
         DB::table('courses')->insert([
-            'cource_name' => '慢性頸部痛',
+            'course_name' => '慢性頸部痛',
         ]);
         DB::table('courses')->insert([
-            'cource_name' => '慢性膝痛',
+            'course_name' => '慢性膝痛',
         ]);
         DB::table('courses')->insert([
-            'cource_name' => 'その他',
+            'course_name' => 'その他',
         ]);
     }
 }
