@@ -12,10 +12,25 @@ class AdminController extends Controller
         $name = $request->input('name');
         $date = $request->input('date');
         $time = $request->input('time');
+        
         // return Eloquent\Builer :The base query builder instance.
         $query = Reservation::query();
 
-        $reservations = Reservation::orderBy('reservation_date', "asc")->get();
+        /*
+        and検索
+        なければ該当なし表示
+        */
+        if (!empty($name)) {
+            $query->where('name', 'LIKE', "%{$name}%");
+        }
+        if (!empty($date)) {
+            $query->whereDate('reservation_date', $date);
+        }
+        if (!empty($time)) {
+            $query->where('time_id', '=', $time);
+        }
+
+        $reservations = $query->orderBy('reservation_date', "asc")->paginate(10);
         return view('admin.index', compact('reservations'));
     }
 }
