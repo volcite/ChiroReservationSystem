@@ -35,15 +35,15 @@
                 <div class="col-9">
                     <select class="form-control" name="time">
                         <option selected value="">Choose...</option>
-                        <option value="1" >9:00</option>
-                        <option value="2" >10:00</option>
-                        <option value="3">11:00</option>
-                        <option value="4" >12:00</option>
-                        <option value="5">15:00</option>
-                        <option value="6" >16:00</option>
-                        <option value="7" >17:00</option>
-                        <option value="8" >18:00</option>
-                        <option value="9" >19:00</option>
+                        <option value="1" @if(old('time') == 1) selected @endif>9:00</option>
+                        <option value="2" @if(old('time') == 2) selected @endif>10:00</option>
+                        <option value="3" @if(old('time') == 3) selected @endif>11:00</option>
+                        <option value="4" @if(old('time') == 4) selected @endif>12:00</option>
+                        <option value="5" @if(old('time') == 5) selected @endif>15:00</option>
+                        <option value="6" @if(old('time') == 6) selected @endif>16:00</option>
+                        <option value="7" @if(old('time') == 7) selected @endif>17:00</option>
+                        <option value="8" @if(old('time') == 8) selected @endif>18:00</option>
+                        <option value="9" @if(old('time') == 9) selected @endif>19:00</option>
                     </select>
                 </div>
             </div>

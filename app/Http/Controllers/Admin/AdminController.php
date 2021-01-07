@@ -17,6 +17,7 @@ class AdminController extends Controller
         $name = $request->input('name');
         $date = $request->input('date');
         $time = $request->input('time');
+        $request->flash();
         // return Eloquent\Builer :The base query builder instance.
         $query = Reservation::query();
 
