@@ -31,6 +31,8 @@ class AdminController extends Controller
         }
 
         $reservations = $query->orderBy('reservation_date', "asc")->paginate(10);
-        return view('admin.index', compact('reservations'));
+        return view('admin.index', compact('reservations', 'name', 'date', 'time'));
     }
 }
+
+// timeの番号を返してそれがvalueの数字と一致したらselectedにしたい
