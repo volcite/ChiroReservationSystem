@@ -8,11 +8,15 @@ use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
-    public function index (Request $request) {
+    public function index () {
+        $reservations = Reservation::orderBy('reservation_date')->paginate(10);
+        return view('admin.index', compact('reservations'));
+    }
+
+    public function search (Request $request) {
         $name = $request->input('name');
         $date = $request->input('date');
         $time = $request->input('time');
-        
         // return Eloquent\Builer :The base query builder instance.
         $query = Reservation::query();
 
@@ -30,9 +34,8 @@ class AdminController extends Controller
             $query->where('time_id', '=', $time);
         }
 
-        $reservations = $query->orderBy('reservation_date', "asc")->paginate(10);
-        return view('admin.index', compact('reservations', 'name', 'date', 'time'));
+        $reservations = $query->orderBy('reservation_date', "asc")->paginate(10)->appends(request()->query());
+        return view('admin.index', compact('reservations'));
     }
 }
 
-// timeの番号を返してそれがvalueの数字と一致したらselectedにしたい

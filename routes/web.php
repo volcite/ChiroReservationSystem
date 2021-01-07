@@ -24,5 +24,6 @@ Route::post('/admin/login', 'Admin\LoginController@login');
     //管理者ログイン後アクセスするもの
 Route::group(['middleware' => ['auth', 'can:admin']], function(){
     Route::get('/admin/index', 'Admin\AdminController@index')->name('admin.index');
+    Route::get('/admin/search', 'Admin\AdminController@search')->name('admin.search');
     Route::post('/admin/logout', 'Admin\LoginController@logout')->name('admin.logout');
 });
