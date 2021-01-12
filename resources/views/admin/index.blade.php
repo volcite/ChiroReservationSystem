@@ -1,13 +1,50 @@
 @extends('layout')
 <!-- ? CSSファイルに切り出し？ -->
 <style>
-    .reservation{
-        border: solid 0.1rem #000000;
+    /* ! フォントは共通化？ */
+    .row{
+        font-family: "Arial", "Helvetica", sans-serif;
+    }
+    .reservation_result__item{
+        background-color: #fff;
+        border: solid 0.2rem transparent;
         border-radius: 1rem;
+        box-shadow: 0 10px 25px 0 #D0D0D0;
     }
-    p{
-        font-size: 1.3rem;
+    .reservation_result__item:hover{
+        box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
     }
+    .information{
+        color:  #000000;
+    }
+    .link > a {
+        display       : inline-block;
+        border-radius : 5%;          /* 角丸       */
+        text-align    : center;      /* 文字位置   */
+        cursor        : pointer;     /* カーソル   */
+        padding       : 0.5rem;      /* 余白  */  
+        opacity       : 0.9;         /* 透明度     */
+        transition    : .3s;         /* なめらか変化 */
+        box-shadow    : 2px 2px 3px #D0D0D0;  /* 影の設定 */
+        line-height   : 1rem;         /* 1行の高さ  */
+    }
+    .link_detail{
+        background: #218838;
+        color: #FFFFFF
+    }
+    .link_edit{
+        background    : #138496;    
+        color         : #FFFFFF;    
+    }
+    .link_cancel {
+        background    : #ff0000;   
+        color         : #000000;   
+    }
+    .link > a:hover {
+    box-shadow    : none;        /* カーソル時の影消去 */
+    opacity       : 1;           /* カーソル時透明度 */
+    }
+
 </style>
 
 @section('content')
@@ -53,24 +90,30 @@
 
     <!-- 予約一覧 -->
     <main class="col-12 col-md-8 offset-md-1"> 
-        <h2>予約一覧 <small>(全{{ $reservations->total() }}件)</small></h2>
+        <h3><img src="/images/logoblack.png" width="28" height="28"> 予約一覧
+            <small>(全{{ $reservations->total() }}件)</small>
+        </h3>
         @if($reservations->total())
             @foreach ($reservations as $reservation) 
-                <section class="reservation my-4">
-                    <div class="m-3">
-                        <p>
-                        {{ $reservation->reservation_date->format('Y年m月d日') }}
-                        {{ $reservation->time->time_number }}
-                        <span class="ml-4">{{ $reservation-> name }} 様</span>
-                        </p>
-                        <p>
-                            予約コース： {{ $reservation->course->course_name }}
-                            <div class="col-12 text-right">
-                                <button class="btn btn-success ml-5">予約詳細</button>
-                                <button class="btn btn-info ml-3">予約修正</button>
-                                <button class="btn btn-danger ml-3">予約キャンセル</button>
-                            </div>
-                        </p>
+                <section class="reservation_result__item my-4">
+                    <a href="#"> <!-- 詳細ページへ -->
+                        <div class="information m-3">
+                            <p class="font-weight-bold">
+                                {{ $reservation->reservation_date->format('Y年m月d日') }}
+                                {{ $reservation->time->time_number }}
+                                <span class="ml-5 font-weight-normal">{{ $reservation-> name }} 様</span>
+                            </p>
+                            <p> 予約コース： {{ $reservation->course->course_name }} </p>
+                        </div>
+                    </a>
+                    <div class="link col-12 mb-2">
+                        <a href="#" class="link_detail col-3 col-md-2">予約詳細
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="link_edit col-3 col-md-2 offset-md-4">予約修正</a>
+                        <a href="#" class="link_cancel col-5 col-md-3">予約キャンセル</a>
                     </div>
                 </section>
             @endforeach
