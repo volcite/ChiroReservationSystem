@@ -1,35 +1,4 @@
-<style>
-    .index_pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 2rem;
-        font-size: 1.2rem;
-        list-style: none;
-    }
-
-    .index_pagination li {
-        align-items: center;
-    }
-
-    .index_pagination li a {
-        color: #2f3859;
-        margin: 0.5rem;
-        padding: 0.5rem; 
-    }
-    .index_pagination li a.active {
-        width: 3rem;
-        height: 3rem;
-        background-color: #0E8088;
-        color: #fff;
-        border-radius: 50%;
-        box-shadow:  0 10px 25px 0 #D0D0D0;
-    }
-    .index_pagination li a:hover:not(.active) {
-        background-color: #e1e7f0;
-        border-radius: 50%;;
-    }
-
-</style>
+<link href="{{ asset('css/admin/index_pagination.css') }}" rel="stylesheet">
 
 @if ($paginator->hasPages())
     <ul class="index_pagination" role="navigation">
