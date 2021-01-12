@@ -1,7 +1,7 @@
 /* ? フォントは共通化？ */
 .row{
   font-family: "Arial", "Helvetica", sans-serif;
-  font-size: 1.2em;
+  font-size: 1rem;
 }
 .reservation_result__item{
   background-color: #fff;
