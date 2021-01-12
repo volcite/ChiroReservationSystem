@@ -4,6 +4,7 @@
     /* ! フォントは共通化？ */
     .row{
         font-family: "Arial", "Helvetica", sans-serif;
+        font-size: 1.2em;
     }
     .reservation_result__item{
         background-color: #fff;
@@ -14,10 +15,10 @@
     .reservation_result__item:hover{
         box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
     }
-    .information{
+    .reservation_result__item .information{
         color:  #000000;
     }
-    .link > a {
+    .reservation_result__item .link > a {
         display       : inline-block;
         border-radius : 5%;          /* 角丸       */
         text-align    : center;      /* 文字位置   */
@@ -28,19 +29,19 @@
         box-shadow    : 2px 2px 3px #D0D0D0;  /* 影の設定 */
         line-height   : 1rem;         /* 1行の高さ  */
     }
-    .link_detail{
+    .reservation_result__item .link_detail{
         background: #218838;
         color: #FFFFFF
     }
-    .link_edit{
+    .reservation_result__item .link_edit{
         background    : #138496;    
         color         : #FFFFFF;    
     }
-    .link_cancel {
+    .reservation_result__item .link_cancel {
         background    : #ff0000;   
         color         : #000000;   
     }
-    .link > a:hover {
+    .reservation_result__item .link > a:hover {
     box-shadow    : none;        /* カーソル時の影消去 */
     opacity       : 1;           /* カーソル時透明度 */
     }
@@ -51,25 +52,26 @@
 <div class="row">
     <!-- 検索機能 -->
     <aside class="col-12 col-md-3">
+        <div class="search">
         <form action="{{ route('admin.search') }}" >
             <!-- 名前 -->
             <div class="form-group row">
-                <label for="name" class="col-3 col-form-label">名前</label>
-                <div class="col-9">
+                <label for="name" class="col-4 col-form-label">名前</label>
+                <div class="col-8">
                     <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
                 </div>
             </div>
             <!-- 日付 -->
             <div class="form-group row">
-                <label for="date" class="col-3 col-form-label" >日付</label>
-                <div class="col-9">
+                <label for="date" class="col-4 col-form-label" >日付</label>
+                <div class="col-8">
                     <input type="date" class="form-control" id="date" name="date"  value="{{ old('date') }}">
                 </div>
             </div>
             <!-- コース時間 -->
             <div class="form-group row">
-                <label for="time" class="col-3 col-form-label">時間</label>
-                <div class="col-9">
+                <label for="time" class="col-4 col-form-label">時間</label>
+                <div class="col-8">
                     <select class="form-control" name="time">
                         <option selected value="">Choose...</option>
                         <option value="1" @if(old('time') == 1) selected @endif>9:00</option>
@@ -86,6 +88,7 @@
             </div>
             <button type="submit" class="btn btn-info float-right">検索</button>
         </form>
+        </div>
     </aside>
 
     <!-- 予約一覧 -->
@@ -101,7 +104,7 @@
                             <p class="font-weight-bold">
                                 {{ $reservation->reservation_date->format('Y年m月d日') }}
                                 {{ $reservation->time->time_number }}
-                                <span class="ml-5 font-weight-normal">{{ $reservation-> name }} 様</span>
+                                <span class="ml-md-5 font-weight-normal">{{ $reservation-> name }} 様</span>
                             </p>
                             <p> 予約コース： {{ $reservation->course->course_name }} </p>
                         </div>
@@ -117,7 +120,7 @@
                     </div>
                 </section>
             @endforeach
-        {{ $reservations->links() }} 
+        {{ $reservations->links('admin.index-pagination') }} 
         @else
         <p>見つかりませんでした</p>
         @endif

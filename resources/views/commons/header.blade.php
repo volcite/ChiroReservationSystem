@@ -37,7 +37,7 @@
     <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="" class="nav-link">予約一覧</a></li>
+                <li class="nav-item"><a href="{{ action('Admin\AdminController@index') }}" class="nav-link">予約一覧</a></li>
                 <li class="nav-item"><a href="" class="nav-link">お客様一覧</a></li>
                 <li class="nav-item"><a href="" class="nav-link">管理者</a></li>
                 <li class="nav-item">

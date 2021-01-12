@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class AdminController extends Controller
 {
     public function index () {
-        $reservations = Reservation::orderBy('reservation_date')->paginate(10);
+        $reservations = Reservation::orderBy('reservation_date')->paginate(5);
         return view('admin.index', compact('reservations'));
     }
 
@@ -35,7 +35,7 @@ class AdminController extends Controller
             $query->where('time_id', '=', $time);
         }
 
-        $reservations = $query->orderBy('reservation_date', "asc")->paginate(10)->appends(request()->query());
+        $reservations = $query->orderBy('reservation_date', "asc")->paginate(5)->appends(request()->query());
         return view('admin.index', compact('reservations'));
     }
 }
