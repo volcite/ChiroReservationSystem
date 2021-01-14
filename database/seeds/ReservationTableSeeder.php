@@ -31,5 +31,7 @@ class ReservationTableSeeder extends Seeder
             'email' => 'kobayashi@kobayashi.com',
             'phone_number' => 123456789,
         ]);
+
+        $reservations = factory(App\Models\Reservation::class, 200)->create();
     }
 }
