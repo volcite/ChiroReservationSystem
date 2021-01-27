@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Facades\Calendar;
 use App\Services\CalendarService;
-use App\Course;
-use App\Time;
+use App\Models\Course;
+use App\Models\Time;
 
 class ReservationsController extends Controller
 {
@@ -20,7 +20,6 @@ class ReservationsController extends Controller
     }
 
     public function create() {
-
         $courses = Course::orderBy('id')->get();
         $times  = Time::orderBy('id')->get();
         $data=[
