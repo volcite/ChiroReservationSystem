@@ -76,10 +76,8 @@
                 {{Form::text('name', null, ['class' => 'form-control', 'placeholder' => '例)09012345678'])}}
             </div>
         </div>
-        <div class="container mt-4 text-center">
-            <a class="btn btn-primary" href="">
-            予約確認
-            </a>
+        <div class="text-center">
+            {!! Form::submit('予約確認',['class'=> 'btn btn-primary mt-3 w-25']) !!}
         </div>
     {{Form::close()}}
 </div>
