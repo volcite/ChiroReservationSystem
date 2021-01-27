@@ -16,7 +16,7 @@ Route::get('/','ReservationsController@index')->name('/');
 Route::get('/users/create', 'Auth\RegisterController@showRegistrationForm')->name('users.create');
 Route::post('/users/register', 'Auth\RegisterController@registerUser')->name('users.register');
 
-Route::get('/reservation/{year}/{month}/{day}', 'ReservationsController@create')->name('reservation.create');
+Route::resource('/reservations', 'ReservationsController',['only'=>['create','store']]);
 
 //管理者側↓
 Route::get('/admin/login', 'Admin\LoginController@showLoginForm')->name('admin.login');
