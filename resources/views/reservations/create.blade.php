@@ -50,30 +50,30 @@
             <div class="mt-4">
                 <h4>④お客様の情報を入力してください</h4>
                 <div>
-                    {{Form::label('','名前')}}
-                    {{Form::text('name', null, ['class' => 'form-control', 'placeholder' => '例)山田花子'])}}
+                    {!! Form::label('','名前') !!}
+                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => '例)山田花子']) !!}
                 </div>
             </div>
             <div class="mt-2">
-                {{Form::label('','年齢')}}
-                {{Form::text('name', null, ['class' => 'form-control', 'placeholder' => '例)25'])}}
+                {!! Form::label('','年齢') !!}
+                {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => '例)25']) !!}
             </div>
             <div class="mt-2">
-                {{Form::label('','性別')}}</br>
+                {!! Form::label('','性別') !!}</br>
 
-                {{Form::radio('gender', '1', false, ['class'=>''])}}
-                {{Form::label('gender','男性')}}
+                {!! Form::radio('gender', '1', false, ['class'=>'']) !!}
+                {!! Form::label('gender','男性') !!}
 
-                {{Form::radio('gender', '2', false, ['class'=>''])}}
-                {{Form::label('gender','女性')}}
+                {!! Form::radio('gender', '2', false, ['class'=>'']) !!}
+                {!! Form::label('gender','女性') !!}
             </div>
             <div class="mt-2">
                 {{Form::label('','メールアドレス')}}
-                {{Form::text('name', null, ['class' => 'form-control', 'placeholder' => '例)sample@email.com'])}}
+                {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => '例)sample@email.com']) !!}
             </div>
             <div class="mt-2">
-                {{Form::label('','電話番号')}}
-                {{Form::text('name', null, ['class' => 'form-control', 'placeholder' => '例)09012345678'])}}
+                {!! Form::label('','電話番号') !!}
+                {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => '例)09012345678']) !!}
             </div>
         </div>
         <div class="text-center">
