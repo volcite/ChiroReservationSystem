@@ -7,19 +7,8 @@
             </div>
         </div>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
-            <span class="navbar-toggler-icon"></span>
+            
         </button>
-
-    @guest
-        <div class="collapse navbar-collapse" id="nav-bar">
-            <ul class="navbar-nav mr-auto"></ul>
-            <ul class="navbar-nav">
-                <li class="nav-item"><a href="" class="nav-link">新規ユーザ登録</a></li>
-                <li class="nav-item"><a href="" class="nav-link">ログイン</a></li>
-            </ul>
-        </div>
-    @endguest
-
       
     @can('user') <!-- ユーザーでログイン状態 -->
             <div class="collapse navbar-collapse" id="nav-bar">
@@ -35,18 +24,18 @@
 
     @can('admin') <!-- 管理者でログイン状態 -->
     <div class="collapse navbar-collapse" id="nav-bar">
-            <ul class="navbar-nav mr-auto"></ul>
-            <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ action('Admin\AdminController@index') }}" class="nav-link">予約一覧</a></li>
-                <li class="nav-item"><a href="" class="nav-link">お客様一覧</a></li>
-                <li class="nav-item"><a href="" class="nav-link">管理者</a></li>
-                <li class="nav-item">
-                <a href="{{ route('admin.logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
-                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
-                @csrf
-                </form>
-                </li>
-            </ul>
+        <ul class="navbar-nav mr-auto"></ul>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a href="{{ action('Admin\AdminController@index') }}" class="nav-link">予約一覧</a></li>
+            <li class="nav-item"><a href="" class="nav-link">お客様一覧</a></li>
+            <li class="nav-item"><a href="" class="nav-link">管理者</a></li>
+            <li class="nav-item">
+            <a href="{{ route('admin.logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+            @csrf
+            </form>
+            </li>
+        </ul>
     </div>
     @endcan
 

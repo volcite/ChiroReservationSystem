@@ -63,13 +63,13 @@ class CalendarService
                             }else{
                                 switch ($dt->format('N')) {
                                     case 6:
-                                        $calendar .= '<td class="day h5" style="background-color:#b0e0e6"><a href="./reservation/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
+                                        $calendar .= '<td class="day h5" style="background-color:#b0e0e6"><a href="./reservations/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
                                         break;
                                     case 7:
                                         $calendar .= '<td class="day h5" style="background-color:#f08080">'.$dt->day.'</td>';
                                         break;
                                     default:
-                                    $calendar .= '<td class="day h5" ><a href="./reservation/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
+                                    $calendar .= '<td class="day h5" ><a href="./reservations/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
                                         break;
                                 }
                             }
