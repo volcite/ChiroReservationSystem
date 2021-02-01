@@ -84,7 +84,7 @@
                     {!! Form::radio('gender', '1', false, ['class'=>'', $reservationData["gender"] == '1' ? 'checked' : '']) !!}
                     {!! Form::label('gender','男性') !!}
 
-                    {!! Form::radio('gender', '2', false, ['class'=>'', $reservationData["gender"] == '1' ? 'checked' : '']) !!}
+                    {!! Form::radio('gender', '2', false, ['class'=>'', $reservationData["gender"] == '2' ? 'checked' : '']) !!}
                     {!! Form::label('gender','女性') !!}
                     </br><span class="text-danger help-block">{{$errors->first('gender')}}</span>
                 </div>

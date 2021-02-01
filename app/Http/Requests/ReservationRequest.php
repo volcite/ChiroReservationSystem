@@ -24,9 +24,9 @@ class ReservationRequest extends FormRequest
     public function rules()
     {
         return [
-            'reservation_year' => ['required', 'string','max:2' ],
-            'reservation_month' => ['required', 'string', 'max:2' ],
-            'reservation_day' => ['required', 'string', 'max:2' ],
+            'reservation_year' => ['required', 'string' ],
+            'reservation_month' => ['required', 'string' ],
+            'reservation_day' => ['required', 'string' ],
             'time_id' => ['required', 'integer' ],
             'course_id' => ['required', 'integer' ],
             'name' => ['max:30', 'required', 'string' ],

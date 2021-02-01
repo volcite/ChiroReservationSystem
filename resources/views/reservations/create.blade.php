@@ -57,11 +57,7 @@
                 <select class="form-control" id="course_id" name="course_id">
                     <option hidden>選択してください</option>
                     @foreach($courses as $key=>$course)
-                        @if((!empty($request->course_id) && $request->course_id == $course->id) || old('course_id') == $course->id )
-                            <option value="{{ $course->id }}" selected>{{ $course->course_name }}</option>
-                        @else
-                            <option value="{{ $course->id }}">{{ $course->course_name }}</option>
-                        @endif
+                        <option value="{{ $course->id }}">{{ $course->course_name }}</option>
                     @endforeach
                 </select>
                 <span class="text-danger help-block">{{$errors->first('course_id')}}</span>
