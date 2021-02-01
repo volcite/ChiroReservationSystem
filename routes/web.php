@@ -19,7 +19,8 @@ Route::post('/users/register', 'Auth\RegisterController@registerUser')->name('us
 Route::get('/reservations/{year}/{month}/{day}', 'ReservationsController@create')->name('reservations.create');
 Route::post('/reservations/checkStore', 'ReservationsController@checkStore')->name('reservations.checkStore');
 Route::get('/reservations/check', 'ReservationsController@check')->name('reservations.check');
-Route::get('/reservations/confirm', 'ReservationsController@confirm')->name('reservations.confirm');
+Route::get('/reservations/store', 'ReservationsController@store')->name('reservations.store');
+Route::get('/reservations/revise', 'ReservationsController@revise')->name('reservations.revise');
 
 
 //管理者側↓

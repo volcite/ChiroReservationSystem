@@ -48,8 +48,8 @@
         </div>
     </div>
     <div class="text-center ">
-    {!! link_to_route('reservations.create', '予約修正', ['year' => $reservation["year"], 'month' => $reservation["month"], 'day' => $reservation["day"]], ['class' => 'btn btn-primary']) !!}
-    {!! link_to_route('reservations.confirm', '予約確定', [], ['class' => 'btn btn-primary']) !!}
+    {!! link_to_route('reservations.revise', '予約修正', [], ['class' => 'btn btn-primary']) !!}
+    {!! link_to_route('reservations.store', '予約確定', [], ['class' => 'btn btn-primary']) !!}
     </div>
 </div>
 @endsection('content')

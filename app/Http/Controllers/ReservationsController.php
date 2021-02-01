@@ -14,20 +14,19 @@ use App\Http\Requests\ReservationRequest;
 
 class ReservationsController extends Controller
 {
-    private $reservationItems = [
-        "reservation_year", 
-        "reservation_month", 
-        "reservation_day", 
-        "time_id", 
-        "cource_id", 
-        "name", 
-        "age", 
-        "gender", 
-        "email", 
-        "phone_number"
-    ];
-    
+
     public function index() {
+        session()->forget('year');
+        session()->forget('month');
+        session()->forget('reservation_date');
+        session()->forget('time_id');
+        session()->forget('course_id');
+        session()->forget('name');
+        session()->forget('age');
+        session()->forget('gender');
+        session()->forget('email');
+        session()->forget('phone_number');
+
         return view('reservations.index', [
         'calendar'      => Calendar::getCalendar(),
         'month'         => Calendar::getMonth(),
@@ -131,8 +130,55 @@ class ReservationsController extends Controller
 
 		return view("reservations.check",$data);
     }
+
+    public function revise() {
+        $reservations = Reservation::orderBy('id')->get();
+        $courses = Course::orderBy('id')->get();
+        $times  = Time::orderBy('id')->get();
+        $reservationData = session()->all();
+        $monthFix = '';
+        $dayFix = '';
+        $count = [];
+        $count[0] = '0';
+        if($reservationData["month"] >= 1 && $reservationData["month"] < 9) {
+            $monthFix = '0'.$reservationData["month"];
+        } else {
+            $monthFix = $reservationData["month"];
+        }
+
+        if($reservationData["day"] >= 1 && $reservationData["day"] < 9) {
+            $dayFix = '0'.$reservationData["day"];
+        } else {
+            $dayFix = $reservationData["day"];
+        }
+
+        $date = $reservationData["year"] . '/' . $monthFix . '/' . $dayFix;
+
+        foreach($times as $key=>$time){
+            foreach($reservations as $key=>$reservation ){
+                if( $reservation->reservation_date->format('Y/m/d') == $date && $reservation->time_id == $time->id)  {                              
+                    $count[] = '1';
+                    break;
+                }
+            }
+            $count[] = '0';
+        }
+
+        $data=[
+            'reservations' => $reservations,
+            'reservationData' => $reservationData,
+            'year' => $reservationData["year"],
+            'month' => $reservationData["month"],
+            'day' => $reservationData["day"],
+            'date' => $date,
+            'count' => $count,
+            'courses' => $courses,
+            'times' => $times,
+        ];
+        return view('reservations.revise',$data);
+    }
         
-    public function confirm() {
+    public function store() {
 
         $times  = Time::orderBy('id')->get();
         $reservations = Reservation::orderBy('id')->get();
@@ -157,6 +203,59 @@ class ReservationsController extends Controller
                 return view("reservations.fail");
             }
         }
-		return view("reservations.confirm");
+
+        try{
+            // トランザクション開始
+            \DB::beginTransaction();
+
+            $reservation = new Reservation();
+
+            $reservation->reservation_date = strval($reservationData["year"].'-'.$monthFix.'-'.$dayFix);
+            $reservation->time_id = $reservationData["time_id"];
+            $reservation->course_id = $reservationData["course_id"];
+            $reservation->name = $reservationData["name"];
+            $reservation->age = $reservationData["age"];
+            $reservation->gender = $reservationData["gender"];
+            $reservation->email = $reservationData["email"];
+            $reservation->phone_number = $reservationData["phone_number"];
+
+            $reservation->save();
+
+            // トランザクションの保存処理を実行
+            \DB::commit();
+
+            session()->forget('year');
+            session()->forget('month');
+            session()->forget('reservation_date');
+            session()->forget('time_id');
+            session()->forget('course_id');
+            session()->forget('name');
+            session()->forget('age');
+            session()->forget('gender');
+            session()->forget('email');
+            session()->forget('phone_number');
+
+            return view("reservations.confirm");
+
+        } catch (\Exception $e) {
+
+            // エラー発生時は、DBへの保存処理が無かったことにする（ロールバック）
+            \DB::rollBack();
+          
+            session()->forget('year');
+            session()->forget('month');
+            session()->forget('reservation_date');
+            session()->forget('time_id');
+            session()->forget('course_id');
+            session()->forget('name');
+            session()->forget('age');
+            session()->forget('gender');
+            session()->forget('email');
+            session()->forget('phone_number');
+
+            //フラッシュメッセージ表示
+            return redirect('/')->with('flash_message', '予約に失敗しました');
+            
+        }
     }
 }
