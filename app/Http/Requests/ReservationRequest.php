@@ -27,7 +27,6 @@ class ReservationRequest extends FormRequest
             'reservation_year' => ['required', 'string','max:2' ],
             'reservation_month' => ['required', 'string', 'max:2' ],
             'reservation_day' => ['required', 'string', 'max:2' ],
-            'reservation_date' => ['required', 'string' ],
             'time_id' => ['required', 'integer' ],
             'course_id' => ['required', 'integer' ],
             'name' => ['max:30', 'required', 'string' ],
