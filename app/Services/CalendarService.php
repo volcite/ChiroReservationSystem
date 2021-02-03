@@ -24,7 +24,7 @@ class CalendarService
     
         $calendar = '<table class="table">';
         $calendar .= '<thead >';
-        foreach($headings as $heading){
+        foreach ($headings as $heading) {
             $calendar .= '<th style="background:#0E8088">'.$heading.'</th>';
         }
 
@@ -34,34 +34,31 @@ class CalendarService
 
         $calendar .= '<tbody><tr>';
             
-            //今月は何日まであるか
-                $daysInMonth = $dt->daysInMonth;
-            
-                for ($i = 1; $i <= $daysInMonth; $i++) {
-                    if($i==1){
-                        if ($dt->format('N')!= 1) {
-                            $calendar .= '<td colspan="'.($dt->format('N')-1).'"></td>'; //1日が月曜じゃない場合はcospanでその分あける
-                        }
-                    }
-                    if($dt->format('N') == 1){
-                        $calendar .= '</tr><tr>'; //月曜日だったら改行
-                    }
-                    $comp = new Carbon($dt->year."-".$dt->month."-".$dt->day); //ループで表示している日
+        for ($i = 1; $i <= $daysInMonth; $i++) {
+            if ($i == 1) {
+                if ($dt->format('N') != 1) {
+                    $calendar .= '<td colspan="'.($dt->format('N')-1).'"></td>'; //1日が月曜じゃない場合はcospanでその分あける
+                }
+            }
+            if ($dt->format('N') == 1) {
+                $calendar .= '</tr><tr>'; //月曜日だったら改行
+            }
+            $comp = new Carbon($dt->year."-".$dt->month."-".$dt->day); //ループで表示している日
                     $comp_now = Carbon::today(); //今日
 
-                    if($comp->lt($comp_now)){
+                    if ($comp->lt($comp_now)) {
                         $calendar .= '<td class="day h5" style="background-color:#ddd;">'.$dt->day.'</td>';
-                    }else{
-                            //ループの日と今日を比較
-                            if ($comp->eq($comp_now)) {
-                                //同じなので緑色の背景にする
-                                $calendar .= '<td class="day h5" style="background-color:#008b8b;">'.$dt->day.'</td>';
-                            //ループの日と祝日のループを比較
-                            }elseif($holidays->isHoliday(new Carbon($dt->year."-".$dt->month."-".$dt->day))){
-                                //同じであれば赤色の背景にする
-                                $calendar .= '<td class="day h5" style="background-color:#f08080">'.$dt->day.'</td>';
-                            }else{
-                                switch ($dt->format('N')) {
+                    } else {
+                        //ループの日と今日を比較
+                        if ($comp->eq($comp_now)) {
+                            //同じなので緑色の背景にする
+                            $calendar .= '<td class="day h5" style="background-color:#008b8b;">'.$dt->day.'</td>';
+                        //ループの日と祝日のループを比較
+                        } elseif ($holidays->isHoliday(new Carbon($dt->year."-".$dt->month."-".$dt->day))) {
+                            //同じであれば赤色の背景にする
+                            $calendar .= '<td class="day h5" style="background-color:#f08080">'.$dt->day.'</td>';
+                        } else {
+                            switch ($dt->format('N')) {
                                     case 6:
                                         $calendar .= '<td class="day h5" style="background-color:#b0e0e6"><a href="./reservation/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
                                         break;
@@ -72,18 +69,17 @@ class CalendarService
                                     $calendar .= '<td class="day h5" ><a href="./reservation/'.$dt->year.'/'.$dt->month.'/'.$dt->day.'">'.$dt->day.'</a></td>';
                                         break;
                                 }
-                            }
                         }
+                    }
                         
-                    $dt->addDay();
-                }
+            $dt->addDay();
+        }
             
-            $calendar .= '</tr></tbody>';
+        $calendar .= '</tr></tbody>';
         
         $calendar .= '</table>';
         
         return $calendar;
-
     }
 
     /**
