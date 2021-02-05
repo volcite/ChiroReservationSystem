@@ -18,6 +18,7 @@ class ReservationsController extends Controller
     public function index() {
         session()->forget('year');
         session()->forget('month');
+        session()->forget('day');
         session()->forget('reservation_date');
         session()->forget('time_id');
         session()->forget('course_id');
@@ -64,7 +65,10 @@ class ReservationsController extends Controller
                     break;
                 }
             }
-            $count[] = '0';
+            if(!(count($count) == $time->id + 1)){
+                $count[] = '0';
+            }
+
         }
 
         $data=[
@@ -82,8 +86,26 @@ class ReservationsController extends Controller
 
     public function checkStore(ReservationRequest $request) {
 
+        $monthFix = '';
+        $dayFix = '';
+        
+        if($request->reservation_month >= 1 && $request->reservation_month < 9) {
+            $monthFix = '0'.$request->reservation_month;
+        } else {
+            $monthFix = $request->reservation_month;
+        }
+
+        if($request->reservation_day >= 1 && $request->reservation_day < 9) {
+            $dayFix = '0'.$request->reservation_day;
+        } else {
+            $dayFix = $request->reservation_day;
+        }
+
+        $date = $request->reservation_year . '/' . $monthFix . '/' . $dayFix;
+
         session()->forget('year');
         session()->forget('month');
+        session()->forget('day');
         session()->forget('reservation_date');
         session()->forget('time_id');
         session()->forget('course_id');
@@ -97,6 +119,7 @@ class ReservationsController extends Controller
             'year' => $request->reservation_year,
             'month' => $request->reservation_month,
             'day' => $request->reservation_day,
+            'reservation_date' => $date,
             'time_id' => $request->time_id,
             'course_id' => $request->course_id,
             'name' => $request->name,
@@ -226,6 +249,7 @@ class ReservationsController extends Controller
 
             session()->forget('year');
             session()->forget('month');
+            session()->forget('day');
             session()->forget('reservation_date');
             session()->forget('time_id');
             session()->forget('course_id');
@@ -244,6 +268,7 @@ class ReservationsController extends Controller
           
             session()->forget('year');
             session()->forget('month');
+            session()->forget('day');
             session()->forget('reservation_date');
             session()->forget('time_id');
             session()->forget('course_id');
