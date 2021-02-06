@@ -15,7 +15,8 @@ use App\Http\Requests\ReservationRequest;
 class ReservationsController extends Controller
 {
 
-    public function index() {
+    public function index()
+    {
         session()->forget('year');
         session()->forget('month');
         session()->forget('day');
@@ -29,14 +30,15 @@ class ReservationsController extends Controller
         session()->forget('phone_number');
 
         return view('reservations.index', [
-        'calendar'      => Calendar::getCalendar(),
-        'month'         => Calendar::getMonth(),
-        'prev'          => Calendar::getPrev(),
-        'next'          => Calendar::getNext(),
-    ]);
+            'calendar'      => Calendar::getCalendar(),
+            'month'         => Calendar::getMonth(),
+            'prev'          => Calendar::getPrev(),
+            'next'          => Calendar::getNext(),
+        ]);
     }
 
-    public function create($year, $month, $day) {
+    public function create($year, $month, $day)
+    {
         $reservations = Reservation::orderBy('id')->get();
         $courses = Course::orderBy('id')->get();
         $times  = Time::orderBy('id')->get();
@@ -44,34 +46,33 @@ class ReservationsController extends Controller
         $dayFix = '';
         $count = [];
         $count[0] = '0';
-        if($month >= 1 && $month < 9) {
-            $monthFix = '0'.$month;
+        if ($month >= 1 && $month <= 9) {
+            $monthFix = '0' . $month;
         } else {
             $monthFix = $month;
         }
 
-        if($day >= 1 && $day < 9) {
-            $dayFix = '0'.$day;
+        if ($day >= 1 && $day <= 9) {
+            $dayFix = '0' . $day;
         } else {
             $dayFix = $day;
         }
 
         $date = $year . '/' . $monthFix . '/' . $dayFix;
 
-        foreach($times as $key=>$time){
-            foreach($reservations as $key=>$reservation ){
-                if( $reservation->reservation_date->format('Y/m/d') == $date && $reservation->time_id == $time->id)  {                              
+        foreach ($times as $key => $time) {
+            foreach ($reservations as $key => $reservation) {
+                if ($reservation->reservation_date->format('Y/m/d') == $date && $reservation->time_id == $time->id) {
                     $count[] = '1';
                     break;
                 }
             }
-            if(!(count($count) == $time->id + 1)){
+            if (!(count($count) == $time->id + 1)) {
                 $count[] = '0';
             }
-
         }
 
-        $data=[
+        $data = [
             'reservations' => $reservations,
             'year' => $year,
             'month' => $month,
@@ -81,22 +82,23 @@ class ReservationsController extends Controller
             'courses' => $courses,
             'times' => $times,
         ];
-        return view('reservations.create',$data);
+        return view('reservations.create', $data);
     }
 
-    public function checkStore(ReservationRequest $request) {
+    public function checkStore(ReservationRequest $request)
+    {
 
         $monthFix = '';
         $dayFix = '';
-        
-        if($request->reservation_month >= 1 && $request->reservation_month < 9) {
-            $monthFix = '0'.$request->reservation_month;
+
+        if ($request->reservation_month >= 1 && $request->reservation_month <= 9) {
+            $monthFix = '0' . $request->reservation_month;
         } else {
             $monthFix = $request->reservation_month;
         }
 
-        if($request->reservation_day >= 1 && $request->reservation_day < 9) {
-            $dayFix = '0'.$request->reservation_day;
+        if ($request->reservation_day >= 1 && $request->reservation_day <= 9) {
+            $dayFix = '0' . $request->reservation_day;
         } else {
             $dayFix = $request->reservation_day;
         }
@@ -128,33 +130,35 @@ class ReservationsController extends Controller
             'email' => $request->email,
             'phone_number' => $request->phone_number,
         ]);
-		
-		
-		return redirect()->action("ReservationsController@check");
+
+
+        return redirect()->action("ReservationsController@check");
     }
-    
-    public function check() {
+
+    public function check()
+    {
 
         $courses = Course::orderBy('id')->get();
         $times  = Time::orderBy('id')->get();
 
         //セッションから値を取り出す
-		$reservation = session()->all();
-		//セッションに値が無い時はTopに戻る
-		if(!$reservation){
-			return redirect()->action("ReservationsController@index");
+        $reservation = session()->all();
+        //セッションに値が無い時はTopに戻る
+        if (!$reservation) {
+            return redirect()->action("ReservationsController@index");
         }
-        
-        $data=[
+
+        $data = [
             'reservation' => $reservation,
             'courses' => $courses,
             'times' => $times,
         ];
 
-		return view("reservations.check",$data);
+        return view("reservations.check", $data);
     }
 
-    public function revise() {
+    public function revise()
+    {
         $reservations = Reservation::orderBy('id')->get();
         $courses = Course::orderBy('id')->get();
         $times  = Time::orderBy('id')->get();
@@ -163,23 +167,23 @@ class ReservationsController extends Controller
         $dayFix = '';
         $count = [];
         $count[0] = '0';
-        if($reservationData["month"] >= 1 && $reservationData["month"] <= 9) {
-            $monthFix = '0'.$reservationData["month"];
+        if ($reservationData["month"] >= 1 && $reservationData["month"] <= 9) {
+            $monthFix = '0' . $reservationData["month"];
         } else {
             $monthFix = $reservationData["month"];
         }
 
-        if($reservationData["day"] >= 1 && $reservationData["day"] <= 9) {
-            $dayFix = '0'.$reservationData["day"];
+        if ($reservationData["day"] >= 1 && $reservationData["day"] <= 9) {
+            $dayFix = '0' . $reservationData["day"];
         } else {
             $dayFix = $reservationData["day"];
         }
 
         $date = $reservationData["year"] . '/' . $monthFix . '/' . $dayFix;
 
-        foreach($times as $key=>$time){
-            foreach($reservations as $key=>$reservation ){
-                if( $reservation->reservation_date->format('Y/m/d') == $date && $reservation->time_id == $time->id)  {                              
+        foreach ($times as $key => $time) {
+            foreach ($reservations as $key => $reservation) {
+                if ($reservation->reservation_date->format('Y/m/d') == $date && $reservation->time_id == $time->id) {
                     $count[] = '1';
                     break;
                 }
@@ -187,7 +191,7 @@ class ReservationsController extends Controller
             $count[] = '0';
         }
 
-        $data=[
+        $data = [
             'reservations' => $reservations,
             'reservationData' => $reservationData,
             'year' => $reservationData["year"],
@@ -198,42 +202,43 @@ class ReservationsController extends Controller
             'courses' => $courses,
             'times' => $times,
         ];
-        return view('reservations.revise',$data);
+        return view('reservations.revise', $data);
     }
-        
-    public function store() {
+
+    public function store()
+    {
 
         $times  = Time::orderBy('id')->get();
         $reservations = Reservation::orderBy('id')->get();
         $reservationData = session()->all();
 
-        if($reservationData["month"] >= 1 && $reservationData["month"] < 9) {
-            $monthFix = '0'.$reservationData["month"];
+        if ($reservationData["month"] >= 1 && $reservationData["month"] <= 9) {
+            $monthFix = '0' . $reservationData["month"];
         } else {
             $monthFix = $reservationData["month"];
         }
 
-        if($reservationData["day"] >= 1 && $reservationData["day"] < 9) {
-            $dayFix = '0'.$reservationData["day"];
+        if ($reservationData["day"] >= 1 && $reservationData["day"] <= 9) {
+            $dayFix = '0' . $reservationData["day"];
         } else {
             $dayFix = $reservationData["day"];
         }
 
         $date = $reservationData["year"] . '/' . $monthFix . '/' . $dayFix;
 
-        foreach($reservations as $key=>$reservation ){
-            if($reservation->reservation_date->format('Y/m/d') == $date && $reservation->time_id == $reservationData["time_id"])  {                              
+        foreach ($reservations as $key => $reservation) {
+            if ($reservation->reservation_date->format('Y/m/d') == $date && $reservation->time_id == $reservationData["time_id"]) {
                 return view("reservations.fail");
             }
         }
 
-        try{
+        try {
             // トランザクション開始
             \DB::beginTransaction();
 
             $reservation = new Reservation();
 
-            $reservation->reservation_date = strval($reservationData["year"].'-'.$monthFix.'-'.$dayFix);
+            $reservation->reservation_date = strval($reservationData["year"] . '-' . $monthFix . '-' . $dayFix);
             $reservation->time_id = $reservationData["time_id"];
             $reservation->course_id = $reservationData["course_id"];
             $reservation->name = $reservationData["name"];
@@ -260,12 +265,11 @@ class ReservationsController extends Controller
             session()->forget('phone_number');
 
             return view("reservations.confirm");
-
         } catch (\Exception $e) {
 
             // エラー発生時は、DBへの保存処理が無かったことにする（ロールバック）
             \DB::rollBack();
-          
+
             session()->forget('year');
             session()->forget('month');
             session()->forget('day');
@@ -280,7 +284,6 @@ class ReservationsController extends Controller
 
             //フラッシュメッセージ表示
             return redirect('/')->with('flash_message', '予約に失敗しました');
-            
         }
     }
 }
