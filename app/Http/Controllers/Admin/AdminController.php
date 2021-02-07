@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Reservation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\Reservation;
 use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
-    public function index () {
+    public function index()
+    {
         $reservations = Reservation::orderBy('reservation_date')->paginate(5);
         return view('admin.index', compact('reservations'));
     }
 
-    public function search (Request $request) {
+    public function search(Request $request)
+    {
         $name = $request->input('name');
         $date = $request->input('date');
         $time = $request->input('time');
@@ -38,5 +41,13 @@ class AdminController extends Controller
         $reservations = $query->orderBy('reservation_date', "asc")->paginate(5)->appends(request()->query());
         return view('admin.index', compact('reservations'));
     }
-}
 
+    public function delete($id)
+    {
+        DB::transaction(function () use ($id) {
+            Reservation::destroy($id);
+        });
+
+        return redirect()->route('admin.index');
+    }
+}

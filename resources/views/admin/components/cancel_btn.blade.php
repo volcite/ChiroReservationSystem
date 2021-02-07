@@ -12,16 +12,20 @@
         </button>
       </div>
       <div class="modal-body">
-        <p class="font-weight-bold">{{ $reservation->reservation_date->format('Y年m月d日') }} {{ $reservation->time->course_name }}</p>
+        <p class="font-weight-bold">{{ $reservation->reservation_date->format('Y年m月d日') }} {{ $reservation->time->time_number }}</p>
         <p>コース名： {{ $reservation->course->course_name }}</p>
         <p>{{ $reservation-> name }} 様</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-        <form name="admin_cancel">
-          @csrf
-          <button type="submit" class="btn btn-danger">予約キャンセル</button>
-        </form>
+        <button type="button" class="btn link_cancel">
+          <a href="{{ route('admin.delete', ['id' => $reservation->id]) }}" style="color: #000000">予約キャンセル</a>
+        </button>
+
+        <!-- {{ Form::open(['route' => ['admin.delete', $reservation->id]]) }} -->
+        <!-- {{ Form::hidden('reservation_id', $reservation->id ) }} -->
+        <!-- {{ Form::submit('予約キャンセル', ['class'=> 'btn btn-danger']) }} -->
+        <!-- {{ Form::close() }} -->
       </div>
     </div>
   </div>
