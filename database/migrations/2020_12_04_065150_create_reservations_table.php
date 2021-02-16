@@ -22,7 +22,7 @@ class CreateReservationsTable extends Migration
             $table->string('age');
             $table->string('gender');
             $table->string('email');
-            $table->integer('phone_number');
+            $table->string('phone_number');
             $table->timestamps();
 
             $table->foreign('course_id')->references('id')->on('courses');
