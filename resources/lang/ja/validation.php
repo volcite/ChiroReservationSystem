@@ -146,10 +146,13 @@ return [
     */
 
     'attributes' => [
+        'time_id' => '予約時間',
+        'cource_id' => 'コース',
         'name' => '氏名',
         'email' => 'メールアドレス',
         'phone_number' => '電話番号',
         'gender' => '性別',
+        'age' => '年齢',
         'birthday' => '生年月日',
         'password' => 'パスワード'
     ], 

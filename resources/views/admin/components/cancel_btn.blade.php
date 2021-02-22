@@ -17,6 +17,7 @@
         <p>{{ $reservation-> name }} 様</p>
       </div>
       <div class="modal-footer">
+        <small>予約キャンセルされますか？</small>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
         <button type="button" class="btn link_cancel">
           <a href="{{ route('admin.delete', ['id' => $reservation->id]) }}" style="color: #000000">予約キャンセル</a>
