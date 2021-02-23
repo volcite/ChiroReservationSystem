@@ -64,12 +64,12 @@
                 </div>
             </a>
             <div class="link col-12 mb-2">
-                <a href="#" class="link_detail col-3 col-md-2">予約詳細
+                <a href="{{ route('admin.showDetail', ['id' => $reservation->id]) }}" class="link_detail col-3 col-md-2">予約詳細
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
                     </svg>
                 </a>
-                <a href="#" class="link_edit col-3 col-md-2 offset-md-4">
+                <a href="{{ route('admin.editReserve', ['id' => $reservation->id]) }}" class="link_edit col-3 col-md-2 offset-md-4">
                     予約修正
                 </a>
                 <!-- 予約キャンセルボタンcomponent -->

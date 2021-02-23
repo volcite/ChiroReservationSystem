@@ -23,6 +23,7 @@ Route::get('/reservations/store', 'ReservationsController@store')->name('reserva
 Route::get('/reservations/revise', 'ReservationsController@revise')->name('reservations.revise');
 
 
+
 //管理者側↓
 Route::get('/admin/login', 'Admin\LoginController@showLoginForm')->name('admin.login');
 Route::post('/admin/login', 'Admin\LoginController@login');
@@ -30,6 +31,11 @@ Route::post('/admin/login', 'Admin\LoginController@login');
 Route::group(['middleware' => ['auth', 'can:admin']], function () {
     Route::get('/admin/index', 'Admin\AdminController@index')->name('admin.index');
     Route::get('/admin/search', 'Admin\AdminController@search')->name('admin.search');
-    Route::get('/admin/delete/{id}', 'Admin\AdminController@delete')->name('admin.delete');
+    // 予約編集系↓
+    Route::get('/admin/showDetail/{id}', 'Admin\AdminController@showDetail')->name('admin.showDetail');
+    Route::get('/admin/editReserve/{id}', 'Admin\AdminController@editReserve')->name('admin.editReserve');
+    Route::get('/admin/confirmReserve/{id}', 'Admin\AdminController@confirmReserve')->name('admin.confirmReserve');
+    Route::get('/admin/delete/{id}', 'Admin\AdminController@deleteReserve')->name('admin.delete');
+    // 予約編集系↑
     Route::post('/admin/logout', 'Admin\LoginController@logout')->name('admin.logout');
 });

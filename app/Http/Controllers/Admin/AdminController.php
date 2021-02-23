@@ -42,7 +42,35 @@ class AdminController extends Controller
         return view('admin.index', compact('reservations'));
     }
 
-    public function delete($id)
+    public function storeToSession($id)
+    {
+        $reservation = Reservation::find($id);
+        session(['reservation' => $reservation]);
+    }
+
+    public function showDetail($id)
+    {
+        $this->storeToSession($id);
+        $reservation = session('reservation');
+        return view('admin.reservation.showDetail', compact('reservation'));
+    }
+
+    public function editReserve()
+    {
+        $reservation = session('reservation');
+        session()->forget('reservation');
+        return view('admin.reservation.edit', compact('reservation'));
+    }
+
+    public function confirmReserve(Request $request, $id)
+    {
+        // 新しいsessionになってるはず…
+        $this->storeToSession($id);
+        $reservation = session('reservation');
+        return view('admin.reservation.confirm', compact('reservation'));
+    }
+
+    public function deleteReserve($id)
     {
         DB::transaction(function () use ($id) {
             Reservation::destroy($id);
@@ -51,3 +79,9 @@ class AdminController extends Controller
         return redirect()->route('admin.index');
     }
 }
+/* revise.blade.php→編集
+    check.blade.php->詳細 
+ とそのあたりのcontroller再利用できそう */
+//  ①button押したらセッションに保存
+//  ②セッションデータをcheck 詳細 or 編集ページに流す
+// 日時・コース・名前・年齢・性別・アドレス・電話
