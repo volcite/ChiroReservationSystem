@@ -20,13 +20,9 @@
         <small>予約キャンセルされますか？</small>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
         <button type="button" class="btn link_cancel">
-          <a href="{{ route('admin.delete', ['id' => $reservation->id]) }}" style="color: #000000">予約キャンセル</a>
+          <a href="{{ route('admin.deleteReserve', ['id' => $reservation->id]) }}" style="color: #000000">予約キャンセル</a>
         </button>
 
-        <!-- {{ Form::open(['route' => ['admin.delete', $reservation->id]]) }} -->
-        <!-- {{ Form::hidden('reservation_id', $reservation->id ) }} -->
-        <!-- {{ Form::submit('予約キャンセル', ['class'=> 'btn btn-danger']) }} -->
-        <!-- {{ Form::close() }} -->
       </div>
     </div>
   </div>

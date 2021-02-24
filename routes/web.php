@@ -35,7 +35,7 @@ Route::group(['middleware' => ['auth', 'can:admin']], function () {
     Route::get('/admin/showDetail/{id}', 'Admin\AdminController@showDetail')->name('admin.showDetail');
     Route::get('/admin/editReserve/{id}', 'Admin\AdminController@editReserve')->name('admin.editReserve');
     Route::get('/admin/confirmReserve/{id}', 'Admin\AdminController@confirmReserve')->name('admin.confirmReserve');
-    Route::get('/admin/delete/{id}', 'Admin\AdminController@deleteReserve')->name('admin.delete');
+    Route::get('/admin/deleteReserve/{id}', 'Admin\AdminController@deleteReserve')->name('admin.deleteReserve');
     // 予約編集系↑
     Route::post('/admin/logout', 'Admin\LoginController@logout')->name('admin.logout');
 });
