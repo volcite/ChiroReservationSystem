@@ -32,7 +32,7 @@ class ReservationRequest extends FormRequest
             'name' => ['max:30', 'required', 'string' ],
             'email' => ['required', 'string', 'email', 'max:100'],
             'phone_number' => ['required', 'max:15', 'string', 'regex:/^[0-9]+$/', 'min:9'],
-            'age' => ['required', 'string', 'max:3'],
+            'age' => ['required', 'string', 'max:3', 'regex:/^[0-9]+$/'],
             'gender' => ['required', 'string'],
         ];
     }

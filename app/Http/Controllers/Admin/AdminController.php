@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
+use App\Models\Course;
+use App\Models\Time;
 use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
@@ -50,16 +52,29 @@ class AdminController extends Controller
 
     public function showDetail($id)
     {
-        $this->storeToSession($id);
-        $reservation = session('reservation');
+        $reservation = Reservation::find($id);
         return view('admin.reservation.showDetail', compact('reservation'));
     }
 
-    public function editReserve()
+    public function editReserve($id)
     {
-        $reservation = session('reservation');
-        session()->forget('reservation');
-        return view('admin.reservation.edit', compact('reservation'));
+        $this->storeToSession($id);
+        $reservation = session()->get('reservation');
+
+        // editするuserと同日の予約済み時間を探す
+        $reserved_times = DB::table('reservations')->select('time_id')
+        ->where('reservation_date', $reservation->reservation_date)
+        ->whereNotIn('time_id', [$reservation->time_id])
+        ->get();
+        //予約済みのtime_idを$reserved_id配列に入れ込む
+        $reserved_id = [];
+        foreach($reserved_times as $reserved_time){
+            array_push($reserved_id, $reserved_time->time_id);
+        }
+
+        $courses = Course::all();
+        $times = Time::all();
+        return view('admin.reservation.edit', compact('reservation', 'courses', 'times', 'reserved_id'));
     }
 
     public function confirmReserve(Request $request, $id)

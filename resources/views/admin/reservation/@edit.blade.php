@@ -1,7 +1,18 @@
 @extends('layout')
+
 @section('content')
 <div class="m-2">
-    {{ Form::open(['route' => 'reservations.checkStore']) }}  
+  ※editページ
+  {{ $reservation }}
+  
+  <!-- 戻るボタン -->
+  <!-- TODO 予約確認ボタン→checkReeserveページもどき-->
+  {!! link_to_route('admin.index', '戻る', [], ['class' => 'btn btn-secondary m-3']) !!}
+  {!! link_to_route('admin.confirmReserve', '確認画面へ', ['id' => $reservation->id], ['class' => 'btn btn-primary m-3']) !!}
+</div>
+@endsection('content')
+
+{{ Form::open(['route' => 'reservations.checkStore']) }}  
         <div>
             <h4>①選択した日程</h4>
             <h5 class="p-3">{{ $year }}年{{ $month }}月{{ $day }}日</h5>
@@ -100,9 +111,5 @@
                 </div>
             </div>
         </div>
-        <div class="text-center ">
-            {!! Form::submit('予約確認',['class'=> 'btn btn-primary mt-3']) !!}
-        </div>
-    {{Form::close()}}
-</div>
-@endsection('content')
+
+
