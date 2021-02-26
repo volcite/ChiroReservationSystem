@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-<meta http-equiv="refresh" content=" 5; route={{ 'admin.index' }}">
+<meta http-equiv="refresh" content=" 5; url={{ url('admin/index') }}">
 
 <div class="m-2">
   <h5 class="text-center">予約修正完了しました</h5>

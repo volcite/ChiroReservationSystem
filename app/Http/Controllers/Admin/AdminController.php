@@ -8,6 +8,7 @@ use App\Models\Reservation;
 use App\Models\Course;
 use App\Models\Time;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ReservationRequest;
 
 class AdminController extends Controller
 {
@@ -77,12 +78,23 @@ class AdminController extends Controller
         return view('admin.reservation.edit', compact('reservation', 'courses', 'times', 'reserved_id'));
     }
 
-    public function confirmReserve(Request $request, $id)
+    public function rePostReserve(ReservationRequest $request, $id)
     {
-        // 新しいsessionになってるはず…
-        $this->storeToSession($id);
-        $reservation = session('reservation');
-        return view('admin.reservation.confirm', compact('reservation'));
+        $reservation = Reservation::find($id);
+
+        DB::transaction(function () use ($reservation, $request) {
+            $reservation->reservation_date = $request->reservation_date;
+            $reservation->time_id = $request->time_id;
+            $reservation->course_id = $request->course_id;
+            $reservation->name =$request->name;
+            $reservation->age = $request->age;
+            $reservation->gender = $request->gender;
+            $reservation->email = $request->email;
+            $reservation->phone_number = $request->phone_number;
+
+            $reservation->save();
+        });
+        return view('admin.reservation.thanks');
     }
 
     public function deleteReserve($id)

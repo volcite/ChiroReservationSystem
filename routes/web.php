@@ -27,15 +27,22 @@ Route::get('/reservations/revise', 'ReservationsController@revise')->name('reser
 //管理者側↓
 Route::get('/admin/login', 'Admin\LoginController@showLoginForm')->name('admin.login');
 Route::post('/admin/login', 'Admin\LoginController@login');
+
 //管理者ログイン後アクセスするもの
-Route::group(['middleware' => ['auth', 'can:admin']], function () {
-    Route::get('/admin/index', 'Admin\AdminController@index')->name('admin.index');
-    Route::get('/admin/search', 'Admin\AdminController@search')->name('admin.search');
+Route::group(['prefix' => 'admin', 'as' =>'admin.', 'middleware' => ['auth', 'can:admin']], function () {
+    Route::get('index', 'Admin\AdminController@index')->name('index');
+    Route::get('search', 'Admin\AdminController@search')->name('search');
     // 予約編集系↓
-    Route::get('/admin/showDetail/{id}', 'Admin\AdminController@showDetail')->name('admin.showDetail');
-    Route::get('/admin/editReserve/{id}', 'Admin\AdminController@editReserve')->name('admin.editReserve');
-    Route::get('/admin/confirmReserve/{id}', 'Admin\AdminController@confirmReserve')->name('admin.confirmReserve');
-    Route::get('/admin/deleteReserve/{id}', 'Admin\AdminController@deleteReserve')->name('admin.deleteReserve');
+    Route::get('showDetail/{id}', 'Admin\AdminController@showDetail')->name('showDetail');
+
+    Route::get('editReserve/{id}', 'Admin\AdminController@editReserve')->name('editReserve');
+    Route::put('editReserve/{id}', 'Admin\AdminController@rePostReserve')->name('editReserve');
+
+    Route::get('confirmReserve/{id}', 'Admin\AdminController@confirmReserve')->name('confirmReserve');
+    Route::post('confirmReserve/{id}', 'Admin\AdminController@updateReserve')->name('confirmReserve');
+    
+    Route::get('deleteReserve/{id}', 'Admin\AdminController@deleteReserve')->name('deleteReserve');
     // 予約編集系↑
-    Route::post('/admin/logout', 'Admin\LoginController@logout')->name('admin.logout');
+
+    Route::post('logout', 'Admin\LoginController@logout')->name('logout');
 });
