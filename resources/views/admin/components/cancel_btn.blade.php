@@ -1,8 +1,8 @@
 <!-- cancelボタン -->
-<a href="#cancel" role="button" data-toggle="modal" class="link_cancel col-5 col-md-3">予約キャンセル</a>
+<a href="#cancel" role="button" data-toggle="modal" class="link_cancel col-5 col-md-3" data-target="#modal-delete-{{ $reservation->id }}">予約キャンセル</a>
 
 <!-- cancel modal -->
-<div class="modal fade" id="cancel" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
+<div class="modal fade" id="modal-delete-{{ $reservation->id }}" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -19,14 +19,10 @@
       <div class="modal-footer">
         <small>予約キャンセルされますか？</small>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-        <button type="button" class="btn link_cancel">
-          <a href="{{ route('admin.delete', ['id' => $reservation->id]) }}" style="color: #000000">予約キャンセル</a>
-        </button>
-
-        <!-- {{ Form::open(['route' => ['admin.delete', $reservation->id]]) }} -->
-        <!-- {{ Form::hidden('reservation_id', $reservation->id ) }} -->
-        <!-- {{ Form::submit('予約キャンセル', ['class'=> 'btn btn-danger']) }} -->
-        <!-- {{ Form::close() }} -->
+        <!-- キャンセルボタン -->
+        {{ Form::open(['route' => ['admin.delete', $reservation->id], 'method' => 'delete' ]) }}
+        {{ Form::submit('予約キャンセル', ['class'=> 'btn link_cancel']) }}
+        {{ Form::close() }}
       </div>
     </div>
   </div>

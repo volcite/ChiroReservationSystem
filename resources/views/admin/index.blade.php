@@ -50,38 +50,39 @@
             <small>(全{{ $reservations->total() }}件)</small>
         </h3>
         @if($reservations->total())
-        @foreach ($reservations as $reservation)
-        <section class="reservation_result__item my-4">
-            <a href="#">
-                <!-- 詳細ページへ -->
-                <div class="information m-3">
-                    <p class="font-weight-bold">
-                        {{ $reservation->reservation_date->format('Y年m月d日') }}
-                        {{ $reservation->time->time_number }}
-                        <span class="ml-md-5 font-weight-normal">{{ $reservation-> name }} 様</span>
-                    </p>
-                    <p> 予約コース： {{ $reservation->course->course_name }} </p>
+            @foreach ($reservations as $reservation)
+            <section class="reservation_result__item my-4">
+                <a href="#">
+                    <!-- 詳細ページへ -->
+                    <div class="information m-3">
+                        <p class="font-weight-bold">
+                            {{ $reservation->reservation_date->format('Y年m月d日') }}
+                            {{ $reservation->time->time_number }}
+                            <span class="ml-md-5 font-weight-normal">{{ $reservation-> name }} 様</span>
+                        </p>
+                        <p> 予約コース： {{ $reservation->course->course_name }} </p>
+                    </div>
+                </a>
+                <div class="link col-12 mb-2">
+                    <a href="#" class="link_detail col-3 col-md-2">予約詳細
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="link_edit col-3 col-md-2 offset-md-4">
+                        予約修正
+                    </a>
+                    <!-- 予約キャンセルボタンcomponent -->
+                    @component('admin.components.cancel_btn')
+                    @slot('reservation', $reservation)
+                    @endcomponent
                 </div>
-            </a>
-            <div class="link col-12 mb-2">
-                <a href="#" class="link_detail col-3 col-md-2">予約詳細
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
-                    </svg>
-                </a>
-                <a href="#" class="link_edit col-3 col-md-2 offset-md-4">
-                    予約修正
-                </a>
-                <!-- 予約キャンセルボタンcomponent -->
-                @component('admin.components.cancel_btn')
-                @slot('reservation', $reservation)
-                @endcomponent
-            </div>
-        </section>
-        @endforeach
+            </section>
+            @endforeach
+
         {{ $reservations->links('admin.index-pagination') }}
         @else
-        <p>見つかりませんでした</p>
+            <p>見つかりませんでした</p>
         @endif
     </main>
 </div>

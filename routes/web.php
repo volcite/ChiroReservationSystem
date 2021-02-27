@@ -30,6 +30,6 @@ Route::post('/admin/login', 'Admin\LoginController@login');
 Route::group(['middleware' => ['auth', 'can:admin']], function () {
     Route::get('/admin/index', 'Admin\AdminController@index')->name('admin.index');
     Route::get('/admin/search', 'Admin\AdminController@search')->name('admin.search');
-    Route::get('/admin/delete/{id}', 'Admin\AdminController@delete')->name('admin.delete');
+    Route::delete('/admin/delete/{id}', 'Admin\AdminController@delete')->name('admin.delete');
     Route::post('/admin/logout', 'Admin\LoginController@logout')->name('admin.logout');
 });
