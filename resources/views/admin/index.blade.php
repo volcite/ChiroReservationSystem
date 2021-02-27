@@ -52,7 +52,7 @@
         @if($reservations->total())
             @foreach ($reservations as $reservation)
             <section class="reservation_result__item my-4">
-                <a href="#">
+                <a href="{{ route('admin.showDetail', ['id' => $reservation->id]) }}">
                     <!-- 詳細ページへ -->
                     <div class="information m-3">
                         <p class="font-weight-bold">

@@ -1,12 +1,13 @@
 @extends('layout')
-
 @section('content')
+
 <div class="m-2">
-	{{ Form::open(['route' => ['admin.editReserve', $reservation->id], 'method' => 'put'] ) }}  
+	{{ Form::open(['route' => ['admin.editReserve', $reservation->id], 'method' => 'put']) }}  
     <div>
-			<h4>①選択した日程</h4>
-			<h5 class="p-3">{{ $reservation->reservation_date->format('Y年m月d日') }}</h5>
-			{{ Form::hidden('date', $reservation->reservation_date) }}
+		{{$reservation}}
+		<h4>①選択した日程</h4>
+		<h5 class="p-3">{{ $reservation->reservation_date->format('Y年m月d日') }}</h5>
+		<input type="hidden" name="reservation_date" value="{{ $reservation->reservation_date }}">
     </div>
 
     <div class="mt-2">
@@ -17,11 +18,11 @@
 						@if($time->id % 3 == 1)
 							@if(in_array($time->id, $reserved_id))
 							<div class="col-sm-12 text-center">                                      
-              <span class=m-3>{{$time->time_number}}</span>
+              					<span class=m-3>{{$time->time_number}}</span>
 							@else
 							<div class="col-sm-12 text-center">
 								<label class="btn btn-outline-secondary m-1 @if($reservation->time_id == $time->id) active @endif" for="time_id">
-								<input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;"
+								<input type="radio" id="time_id" name="time_id" value="{{ $time->id }}" autocomplete="off" style="display:none;"
 								@if($reservation->time_id == $time->id) checked @endif>
 									{{ $time->time_number }}
 								</label>
@@ -39,6 +40,7 @@
 						@elseif($time->id % 3 == 0)
 							@if(in_array($time->id, $reserved_id))
 								<span class=m-3>{{$time->time_number}}</span>
+							</div>
 							@else
 								<label class="btn btn-outline-secondary m-1  @if($reservation->time_id == $time->id) active @endif" for="time_id">
 								<input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;"
@@ -65,8 +67,7 @@
 					@endforeach
 			</select>
 			<span class="text-danger help-block">{{$errors->first('course_id')}}</span>
-    </div>
-    <div class="mt-4">
+    	<div class="mt-4">
 			<h4>④お客様の情報を入力してください</h4>
 			<div class="@error('name') is-invalid @enderror">
 				{{ Form::label('','名前') }}
@@ -115,11 +116,11 @@
 				@enderror         
 			</div>
 		</div>
-
-		<div class="text-center ">
-			{{ link_to_route('admin.index', '戻る', [], ['class' => 'btn btn-secondary m-3']) }}
-			{{ Form::submit('確認画面へ',['class'=> 'btn btn-primary mt-3']) }}
-		</div>
+	</div>
+	<div class="text-center ">
+		{{ link_to_route('admin.index', '戻る', [], ['class' => 'btn btn-secondary mt-3 mr-5']) }}
+		{{ Form::submit('確認画面へ',['class'=> 'btn btn-primary mt-3']) }}
+	</div>
 	{{Form::close()}}
 </div>
 @endsection

@@ -33,11 +33,10 @@ Route::group(['prefix' => 'admin', 'as' =>'admin.', 'middleware' => ['auth', 'ca
     Route::get('index', 'Admin\AdminController@index')->name('index');
     Route::get('search', 'Admin\AdminController@search')->name('search');
     // 予約編集系↓
-    Route::get('showDetail/{id}', 'Admin\AdminController@showDetail')->name('showDetail');
+    Route::get('showDetail/{id}', 'Admin\AdminController@show')->name('showDetail');
 
-    Route::get('editReserve/{id}', 'Admin\AdminController@editReserve')->name('editReserve');
-    Route::put('editReserve/{id}', 'Admin\AdminController@rePostReserve')->name('editReserve');
-
+    Route::get('editReserve/{id}', 'Admin\AdminController@edit')->name('editReserve');
+    Route::put('editReserve/{id}', 'Admin\AdminController@rePost');
     Route::get('confirmReserve/{id}', 'Admin\AdminController@confirmReserve')->name('confirmReserve');
     Route::post('confirmReserve/{id}', 'Admin\AdminController@updateReserve')->name('confirmReserve');
     Route::delete('delete/{id}', 'Admin\AdminController@delete')->name('delete');

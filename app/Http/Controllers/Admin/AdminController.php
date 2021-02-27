@@ -45,26 +45,24 @@ class AdminController extends Controller
         return view('admin.index', compact('reservations'));
     }
 
-    public function storeToSession($id)
-    {
-        $reservation = Reservation::find($id);
-        session(['reservation' => $reservation]);
-    }
+    // public function storeToSession($id)
+    // {
+    //     $reservation = Reservation::find($id);
+    //     session(['reservation' => $reservation]);
+    // }
 
-    public function showDetail($id)
+    public function show($id)
     {
         $reservation = Reservation::find($id);
         return view('admin.reservation.showDetail', compact('reservation'));
     }
 
-    public function editReserve($id)
+    public function edit($id)
     {
-        $this->storeToSession($id);
-        $reservation = session()->get('reservation');
+        $reservation = Reservation::find($id);
 
         // editするuserと同日の予約済み時間を探す
-        $reserved_times = DB::table('reservations')->select('time_id')
-        ->where('reservation_date', $reservation->reservation_date)
+        $reserved_times = Reservation::where('reservation_date', $reservation->reservation_date)
         ->whereNotIn('time_id', [$reservation->time_id])
         ->get();
         //予約済みのtime_idを$reserved_id配列に入れ込む
@@ -78,22 +76,12 @@ class AdminController extends Controller
         return view('admin.reservation.edit', compact('reservation', 'courses', 'times', 'reserved_id'));
     }
 
-    public function rePostReserve(ReservationRequest $request, $id)
+    public function rePost(ReservationRequest $request, $id)
     {
         $reservation = Reservation::find($id);
-        $data = [
-            'reservation_date' => $request->reservation_date,
-            'time_id' => $request->time_id,
-            'course_id' => $request->course_id,
-            'name' => $request->name,
-            'age' => $request->age,
-            'gender' => $request->gender,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-        ];
-
-        DB::transaction(function () use ($reservation, $data) {
-            $reservation->update($data);
+        
+        DB::transaction(function () use ($reservation, $request) {
+            $reservation->fill($request->all())->save();
         });
         return view('admin.reservation.thanks');
     }

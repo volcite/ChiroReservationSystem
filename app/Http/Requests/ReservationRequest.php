@@ -25,6 +25,7 @@ class ReservationRequest extends FormRequest
     {   
         if($this->is('admin/*')){
             return [
+                'reservation_date' => ['required', 'string'],
                 'time_id' => ['required', 'integer' ],
                 'course_id' => ['required', 'integer' ],
                 'name' => ['max:30', 'required', 'string' ],
