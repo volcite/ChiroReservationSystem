@@ -2,6 +2,13 @@
 @section('content')
 
 <div class="m-2">
+
+	@if (session('message'))
+		<div class="alert alert-success">
+			{{ session('message') }}
+		</div>
+	@endif
+
 	{{ Form::open(['route' => ['admin.editReserve', $reservation->id], 'method' => 'put']) }}  
     <div>
 		<h4>①選択した日程</h4>
@@ -20,9 +27,11 @@
 							<span class=m-3>{{$time->time_number}}</span>
 						@else
 						<div class="col-sm-12 text-center">
-							<label class="btn btn-outline-secondary m-1 @if($reservation->time_id == $time->id) active @endif" for="time_id">
+							<label class="btn btn-outline-secondary m-1
+							@if(old('time_id', $reservation->time_id) == $time->id) active @endif"
+							 for="time_id">
 							<input type="radio" id="time_id" name="time_id" value="{{ $time->id }}" autocomplete="off" style="display:none;"
-							@if($reservation->time_id == $time->id) checked @endif>
+							@if(old('time_id', $reservation->time_id) == $time->id) checked @endif>
 								{{ $time->time_number }}
 							</label>
 						@endif	
@@ -30,9 +39,11 @@
 						@if(in_array($time->id, $reserved_id))
 						<span class=m-3>{{$time->time_number}}</span>
 						@else
-						<label class="btn btn-outline-secondary m-1  @if($reservation->time_id == $time->id) active @endif" for="time_id">
+						<label class="btn btn-outline-secondary m-1
+						@if(old('time_id', $reservation->time_id) == $time->id) active @endif"
+					    for="time_id">
 						<input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;"
-						@if($reservation->time_id == $time->id) checked @endif>
+						@if(old('time_id', $reservation->time_id) == $time->id) checked @endif>
 						{{$time->time_number}}
 						</label>
 						@endif	
@@ -41,9 +52,11 @@
 							<span class=m-3>{{$time->time_number}}</span>
 						</div>
 						@else
-							<label class="btn btn-outline-secondary m-1  @if($reservation->time_id == $time->id) active @endif" for="time_id">
-							<input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;"
-							@if($reservation->time_id == $time->id) checked @endif>
+							<label class="btn btn-outline-secondary m-1
+						    @if(old('time_id', $reservation->time_id) == $time->id) active @endif"
+						    for="time_id">
+							<input type="radio" id="time_id" name="time_id" value="{{ $time->id }}" autocomplete="off" style="display:none;"
+							@if(old('time_id', $reservation->time_id) == $time->id) checked @endif>
 							{{$time->time_number}}
 							</label>
 						</div>
@@ -60,7 +73,7 @@
 		<select class="form-control" id="course_id" name="course_id">
 			@foreach($courses as $course)
 				<option value="{{ $course->id }}" 
-				@if ($reservation->course_id == $course->id) selected @endif>
+				@if(old('course_id', $reservation->course_id) == $course->id) selected @endif>
 						{{ $course->course_name }}
 				</option>
 			@endforeach

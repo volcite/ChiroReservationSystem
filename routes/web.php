@@ -37,8 +37,10 @@ Route::group(['prefix' => 'admin', 'as' =>'admin.', 'middleware' => ['auth', 'ca
 
     Route::get('editReserve/{id}', 'Admin\AdminController@edit')->name('editReserve');
     Route::put('editReserve/{id}', 'Admin\AdminController@rePost');
-    Route::get('confirmReserve/{id}', 'Admin\AdminController@confirmReserve')->name('confirmReserve');
-    Route::post('confirmReserve/{id}', 'Admin\AdminController@updateReserve')->name('confirmReserve');
+
+    Route::get('confirm', 'Admin\AdminController@confirm')->name('confirmReserve');
+    Route::put('confirm', 'Admin\AdminController@update');
+    
     Route::delete('delete/{id}', 'Admin\AdminController@delete')->name('delete');
     // 予約編集系↑
 
