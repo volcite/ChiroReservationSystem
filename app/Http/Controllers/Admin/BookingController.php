@@ -11,11 +11,12 @@ use App\Models\Course;
 use App\Models\Time;
 use App\Http\Requests\ReservationRequest;
 
-class AdminController extends Controller
+class BookingController extends Controller
 {
+
     public function index()
     {
-        $reservations = Reservation::orderBy('reservation_date')->paginate(5);
+        $reservations = Reservation::orderBy('reservation_date')->orderBy('time_id')->paginate(5);
         return view('admin.index', compact('reservations'));
     }
 
@@ -49,14 +50,14 @@ class AdminController extends Controller
     public function show($id)
     {
         $reservation = Reservation::find($id);
-        return view('admin.reservation.showDetail', compact('reservation'));
+        return view('admin.reservation.show', compact('reservation'));
     }
 
     public function edit($id)
     {
         $reservation = Reservation::find($id);
 
-        // editするuserと同日の予約済み時間を探す
+        // editする予約日と同日の予約済み時間を探す
         $reserved_times = Reservation::where('reservation_date', $reservation->reservation_date)
         ->whereNotIn('time_id', [$reservation->time_id])
         ->get();
@@ -84,7 +85,8 @@ class AdminController extends Controller
             "email" => $request->email,
             "phone_number" => $request->phone_number,
             ]);
-        return redirect()->action('Admin\AdminController@confirm');
+
+        return redirect()->action('Admin\BookingController@confirm');
     }
 
     public function confirm(Request $request)
@@ -98,7 +100,7 @@ class AdminController extends Controller
 
         // セッション情報がなかったら編集画面へ戻す
         if(!$reservation){
-            return redirect()->action("Admin\AdminController@edit", ['id' => $reservation["id"]])
+            return redirect()->action("Admin\BookingController@edit", ['id' => $reservation["id"]])
             ->with('message', '修正に失敗しました');
         }
         return view('admin.reservation.confirm', compact('courses', 'times', 'reservation', 'reservation_date'));
@@ -109,7 +111,7 @@ class AdminController extends Controller
         $reservationData = $request->session()->all();
           // セッション情報がなかったら編集画面へ戻す
         if(!$reservationData){
-            return redirect()->action("Admin\AdminController@edit", ['id' => $reservation["id"]])
+            return redirect()->action("Admin\BookingController@edit", ['id' => $reservation["id"]])
             ->with('message', '修正に失敗しました');
         }
 
@@ -127,7 +129,22 @@ class AdminController extends Controller
         DB::transaction(function () use ($reservation, $data) {
             $reservation->fill($data)->save();
         });
-        return view('admin.reservation.thanks');
+
+        $request->session()->forget([
+            'id', 
+            'reservation_date', 
+            'time_id', 
+            'course_id', 
+            'name', 
+            'age', 
+            'gender', 
+            'email', 
+            'phone_number'
+            ]);
+        // 二度送信防止
+        $request->session()->regenerateToken();
+
+        return view('admin.reservation.complete');
     }
 
     public function delete($id)

@@ -71,7 +71,7 @@
                     </a>
                     <a href="{{ route('admin.editReserve', ['id' => $reservation->id]) }}" class="link_edit col-3 col-md-2 offset-md-4">予約修正</a>
                     <!-- 予約キャンセルボタンcomponent -->
-                    @component('admin.components.cancel_btn')
+                    @component('admin.reservation.cancel_btn')
                         @slot('reservation', $reservation)
                     @endcomponent
                 </div>
