@@ -163,6 +163,7 @@ class ReservationsController extends Controller
         $dayFix = '';
         $count = [];
         $count[0] = '0';
+        
         if($reservationData["month"] >= 1 && $reservationData["month"] <= 9) {
             $monthFix = '0'.$reservationData["month"];
         } else {
