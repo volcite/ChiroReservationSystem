@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Session\SessionManager;
+use Illuminate\Support\Facades\Mail;
 use App\Facades\Calendar;
 use App\Services\CalendarService;
+use App\Mail\CompleteReserve;
 use App\Models\Course;
 use App\Models\Time;
 use App\Models\Reservation;
@@ -264,7 +266,10 @@ class ReservationsController extends Controller
             session()->forget('email');
             session()->forget('phone_number');
 
+            // メール送信
+            Mail::to($reservation)->send(new CompleteReserve($reservation));
             return view("reservations.confirm");
+
         } catch (\Exception $e) {
 
             // エラー発生時は、DBへの保存処理が無かったことにする（ロールバック）
