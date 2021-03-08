@@ -1,0 +1,44 @@
+/* ? フォントは共通化？ */
+.row{
+  font-family: "Arial", "Helvetica", sans-serif;
+  font-size: 1rem;
+}
+.reservation_result__item{
+  background-color: #fff;
+  border: solid 0.2rem transparent;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px 0 #D0D0D0;
+}
+.reservation_result__item:hover{
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+.reservation_result__item .information{
+  color:  #000000;
+}
+.reservation_result__item .link > a {
+  display       : inline-block;
+  border-radius : 5%;          /* 角丸       */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 0.5rem;      /* 余白  */  
+  opacity       : 0.9;         /* 透明度     */
+  transition    : .3s;         /* なめらか変化 */
+  box-shadow    : 2px 2px 3px #D0D0D0;  /* 影の設定 */
+  line-height   : 1rem;         /* 1行の高さ  */
+}
+.reservation_result__item .link_detail{
+  background: #218838;
+  color: #FFFFFF
+}
+.reservation_result__item .link_edit{
+  background    : #138496;    
+  color         : #FFFFFF;    
+}
+.reservation_result__item .link_cancel {
+  background    : #ff0000;   
+  color         : #000000;   
+}
+.reservation_result__item .link > a:hover {
+box-shadow    : none;        /* カーソル時の影消去 */
+opacity       : 1;           /* カーソル時透明度 */
+}
