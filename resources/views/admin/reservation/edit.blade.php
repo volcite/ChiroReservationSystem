@@ -12,7 +12,7 @@
 	{{ Form::open(['route' => ['admin.editReserve', $reservation->id], 'method' => 'put']) }}  
     <div>
 		<h4>①選択した日程</h4>
-		<h5 class="p-3">{{ $reservation->reservation_date->format('Y年m月d日') }}</h5>
+		<h5 class="p-3">{{ $reservation->reservation_date->isoFormat('YYYY年MM月DD日(ddd)') }}</h5>
 		{{ Form::hidden('reservation_date', $reservation->reservation_date) }}
     </div>
 

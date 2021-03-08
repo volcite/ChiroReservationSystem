@@ -4,7 +4,7 @@
     {{ Form::open(['route' => 'reservations.checkStore']) }}
     <div>
         <h4>①選択した日程</h4>
-        <h5 class="p-3">{{ $year }}年{{ $month }}月{{ $day }}日</h5>
+        <h5 class="p-3">{{$carbon_date->isoFormat('YYYY年MM月DD日 (ddd)') }}</h5>
         {!! Form::hidden('reservation_year', $year) !!}
         {!! Form::hidden('reservation_month', $month) !!}
         {!! Form::hidden('reservation_day', $day) !!}

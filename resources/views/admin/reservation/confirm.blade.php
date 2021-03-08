@@ -4,7 +4,7 @@
     {{ Form::open(['route' => 'admin.confirmReserve', 'method' => 'put']) }}
     <div>
         <h4>①ご予約日時</h4>
-        <h5 class="pl-3">{{ $reservation_date->format('Y年m月d日') }}
+        <h5 class="pl-3">{{ $reservation_date->isoFormat('YYYY年MM月DD日(ddd)') }}
         @foreach($times as $time)
             @if($time->id == $reservation["time_id"])
                 {{$time->time_number}}</h5>

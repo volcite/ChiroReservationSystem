@@ -3,7 +3,7 @@
 <div class="m-2">
     <div>
         <h4>①ご予約日時</h4>
-        <h5 class="pl-3">{{ $reservation["year"] }}年{{ $reservation["month"] }}月{{ $reservation["day"] }}日
+        <h5 class="pl-3">{{ $carbon_date->isoFormat('YYYY年MM月DD日 (ddd)') }}
         @foreach($times as $key=>$time)
             @if($time->id == $reservation["time_id"])
                 {{$time->time_number}}</h5>
