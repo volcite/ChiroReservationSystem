@@ -14,61 +14,44 @@
         <div class="btn-group btn-group-toggle @if(!empty($errors->first('time_id'))) has-error @endif" data-toggle="buttons">
             <div class="row  justify-content-center">
                 @foreach($times as $key=>$time)
-                @if($time->id % 3 == 1)
-                @if($count[$time->id] == 1)
-                <div class="col-sm-12 text-center">
-                    <span class=m-3>{{$time->time_number}}</span>
-                    @else
-                    @if($reservationData["reservation_date"] == $date && $reservationData["time_id"] == $time->id)
-                    <div class="col-sm-12 text-center">
-                        <label class="btn btn-outline-secondary m-1" for="time_id">
-                            <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;" checked>
-                            {{ $time->time_number }}
-                        </label>
+                    @if($time->id % 3 == 1)
+                        @if($count[$time->id] == 1)
+                        <div class="col-sm-12 text-center">
+                            <span class=m-3>{{$time->time_number}}</span>
                         @else
                         <div class="col-sm-12 text-center">
-                            <label class="btn btn-outline-secondary m-1" for="time_id">
-                                <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;" checked>
+                            <label class="btn btn-outline-secondary m-1 @if(old('time_id', $reservationData["time_id"]) == $time->id) active @endif"
+                            for="time_id">
+                                <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;"
+                                @if(old('time_id', $reservationData["time_id"]) == $time->id) checked @endif>
                                 {{ $time->time_number }}
                             </label>
-                            @endif
-                            @endif
-                            @elseif($time->id % 3 == 2)
-                            @if($count[$time->id] == 1)
+                        @endif
+                    @elseif($time->id % 3 == 2)
+                        @if($count[$time->id] == 1)
                             <span class=m-3>{{$time->time_number}}</span>
-                            @else
-                            @if($reservationData["reservation_date"] == $date && $reservationData["time_id"] == $time->id)
-                            <label class="btn btn-outline-secondary m-1" for="time_id">
-                                <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;" checked>
+                        @else
+                            <label class="btn btn-outline-secondary m-1 @if(old('time_id', $reservationData["time_id"]) == $time->id) active @endif"
+                            for="time_id">
+                                <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;"
+                                @if(old('time_id', $reservationData["time_id"]) == $time->id) checked @endif>
                                 {{$time->time_number}}
                             </label>
-                            @else
-                            <label class="btn btn-outline-secondary m-1" for="time_id">
-                                <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;">
-                                {{$time->time_number}}
-                            </label>
-                            @endif
-                            @endif
-                            @elseif($time->id % 3 == 0)
-                            @if($count[$time->id] == 1)
+                        @endif
+                    @elseif($time->id % 3 == 0)
+                        @if($count[$time->id] == 1)
                             <span class=m-3>{{$time->time_number}}</span>
                         </div>
                         @else
-                        @if($reservationData["reservation_date"] == $date && $reservationData["time_id"] == $time->id)
-                        <label class="btn btn-outline-secondary m-1" for="time_id">
-                            <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;" checked>
-                            {{$time->time_number}}
-                        </label>
-                    </div>
-                    @else
-                    <label class="btn btn-outline-secondary m-1" for="time_id">
-                        <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;">
-                        {{$time->time_number}}
-                    </label>
-                </div>
-                @endif
-                @endif
-                @endif
+                            <label class="btn btn-outline-secondary m-1  @if(old('time_id', $reservationData["time_id"]) == $time->id) active @endif"
+                            for="time_id">
+                                <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;"
+                                @if(old('time_id', $reservationData["time_id"]) == $time->id) checked @endif>
+                                {{$time->time_number}}
+                            </label>
+                        </div>
+                        @endif
+                    @endif
                 @endforeach
                 <span class="text-danger help-block text-center">{{$errors->first('time_id')}}</span>
             </div>
