@@ -197,9 +197,11 @@ class ReservationsController extends Controller
                     break;
                 }
             }
-            $count[] = '0';
+            if (!(count($count) == $time->id + 1)) {
+                $count[] = '0';
+            }
         }
-
+        
         $carbon_date = Carbon::create(
             $reservationData["year"],
             $reservationData["month"],

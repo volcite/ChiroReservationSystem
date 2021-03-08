@@ -19,7 +19,7 @@
                 <div class="col-sm-12 text-center">
                     <span class=m-3>{{$time->time_number}}</span>
                     @else
-                    @if($reservationData["reservation_date"] == $date && $reservationData["time_id"] == $time->id))
+                    @if($reservationData["reservation_date"] == $date && $reservationData["time_id"] == $time->id)
                     <div class="col-sm-12 text-center">
                         <label class="btn btn-outline-secondary m-1" for="time_id">
                             <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;" checked>
@@ -37,7 +37,7 @@
                             @if($count[$time->id] == 1)
                             <span class=m-3>{{$time->time_number}}</span>
                             @else
-                            @if($reservationData["reservation_date"] == $date && $reservationData["time_id"] == $time->id))
+                            @if($reservationData["reservation_date"] == $date && $reservationData["time_id"] == $time->id)
                             <label class="btn btn-outline-secondary m-1" for="time_id">
                                 <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;" checked>
                                 {{$time->time_number}}
