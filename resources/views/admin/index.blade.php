@@ -56,7 +56,7 @@
                     <!-- 詳細ページへ -->
                     <div class="information m-3">
                         <p class="font-weight-bold">
-                            {{ $reservation->reservation_date->format('Y年m月d日') }}
+                            {{ $reservation->reservation_date->isoFormat('YYYY年MM月DD日(ddd)') }}
                             {{ $reservation->time->time_number }}
                             <span class="ml-md-5 font-weight-normal">{{ $reservation-> name }} 様</span>
                         </p>

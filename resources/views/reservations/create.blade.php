@@ -4,7 +4,7 @@
     {{ Form::open(['route' => 'reservations.checkStore']) }}  
         <div>
             <h4>①選択した日程</h4>
-            <h5 class="p-3">{{ $year }}年{{ $month }}月{{ $day }}日</h5>
+            <h5 class="p-3">{{ $carbon_date->isoFormat('YYYY年MM月DD日 (ddd)') }}</h5>
             {!! Form::hidden('reservation_year', $year) !!}
             {!! Form::hidden('reservation_month', $month) !!}
             {!! Form::hidden('reservation_day', $day) !!}
@@ -20,8 +20,9 @@
                                     <span class=m-3>{{$time->time_number}}</span>
                             @else
                                 <div class="col-sm-12 text-center">
-                                    <label class="btn btn-outline-secondary m-1" for="time_id">
-                                        <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;">
+                                    <label class="btn btn-outline-secondary m-1 @if(old('time_id') == $time->id) active @endif" for="time_id">
+                                        <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" @if(old('time_id') == $time->id) checked @endif
+                                        autocomplete="off" style="display:none;">
                                         {{ $time->time_number }}
                                     </label>
                             @endif
@@ -29,8 +30,9 @@
                             @if($count[$time->id] == 1)
                                 <span class=m-3>{{$time->time_number}}</span>
                             @else
-                                <label class="btn btn-outline-secondary m-1" for="time_id">
-                                    <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;">
+                                <label class="btn btn-outline-secondary m-1 @if(old('time_id') == $time->id) active @endif" for="time_id">
+                                    <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" @if(old('time_id') == $time->id) checked @endif
+                                    autocomplete="off" style="display:none;">
                                     {{$time->time_number}}
                                 </label>
                             @endif
@@ -39,8 +41,9 @@
                                     <span class=m-3>{{$time->time_number}}</span>
                                 </div>
                             @else
-                                <label class="btn btn-outline-secondary m-1" for="time_id">
-                                    <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" autocomplete="off" style="display:none;">
+                                <label class="btn btn-outline-secondary m-1 @if(old('time_id') == $time->id) active @endif" for="time_id">
+                                    <input type="radio" id="time_id" name="time_id" value="{{$time->id}}" @if(old('time_id') == $time->id) checked @endif
+                                    autocomplete="off" style="display:none;">
                                     {{$time->time_number}}
                                 </label>
                             </div>

@@ -12,7 +12,7 @@ use App\Models\Course;
 use App\Models\Time;
 use App\Models\Reservation;
 use App\Http\Requests\ReservationRequest;
-
+use Carbon\Carbon;
 
 class ReservationsController extends Controller
 {
@@ -74,6 +74,7 @@ class ReservationsController extends Controller
             }
         }
 
+        $carbon_date = Carbon::create($year, $month, $day);
         $data = [
             'reservations' => $reservations,
             'year' => $year,
@@ -83,6 +84,7 @@ class ReservationsController extends Controller
             'count' => $count,
             'courses' => $courses,
             'times' => $times,
+            'carbon_date' => $carbon_date
         ];
         return view('reservations.create', $data);
     }
@@ -150,10 +152,17 @@ class ReservationsController extends Controller
             return redirect()->action("ReservationsController@index");
         }
 
+        $carbon_date = Carbon::create(
+            session('year'), 
+            session('month'), 
+            session('day')
+        );
+
         $data = [
             'reservation' => $reservation,
             'courses' => $courses,
             'times' => $times,
+            'carbon_date' => $carbon_date
         ];
 
         return view("reservations.check", $data);
@@ -190,9 +199,16 @@ class ReservationsController extends Controller
                     break;
                 }
             }
-            $count[] = '0';
+            if (!(count($count) == $time->id + 1)) {
+                $count[] = '0';
+            }
         }
-
+        
+        $carbon_date = Carbon::create(
+            $reservationData["year"],
+            $reservationData["month"],
+            $reservationData["day"]
+        );
         $data = [
             'reservations' => $reservations,
             'reservationData' => $reservationData,
@@ -203,6 +219,7 @@ class ReservationsController extends Controller
             'count' => $count,
             'courses' => $courses,
             'times' => $times,
+            'carbon_date' => $carbon_date
         ];
         return view('reservations.revise', $data);
     }

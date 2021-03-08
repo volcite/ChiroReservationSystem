@@ -109,8 +109,13 @@ class BookingController extends Controller
     public function update(Request $request) 
     {
         $reservationData = $request->session()->all();
-          // セッション情報がなかったら編集画面へ戻す
-        if(!$reservationData){
+
+        // 変更希望時間に既に予約が入っているかチェック
+        $already_reserved = Reservation::where('reservation_date', $reservationData['reservation_date'])
+                            ->where('time_id', $reservationData['time_id'])
+                            ->get();
+        // セッション情報がないor 既に予約済みなら編集画面へ戻す
+        if(!$reservationData || $already_reserved == null){
             return redirect()->action("Admin\BookingController@edit", ['id' => $reservation["id"]])
             ->with('message', '修正に失敗しました');
         }

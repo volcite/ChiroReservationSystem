@@ -5,7 +5,7 @@
   <div>
     <h4>①ご予約日時</h4>
     <h5 class="pl-3">
-      {{ $reservation->reservation_date->format('Y年m月d日') }}
+      {{ $reservation->reservation_date->isoFormat('YYYY年MM月DD日(ddd)') }}
       {{ $reservation->time->time_number }}
     </h5>
   </div>

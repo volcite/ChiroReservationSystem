@@ -12,7 +12,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p class="font-weight-bold">{{ $reservation->reservation_date->format('Y年m月d日') }} {{ $reservation->time->time_number }}</p>
+        <p class="font-weight-bold">{{ $reservation->reservation_date->isoFormat('YYYY年MM月DD日(ddd)') }} {{ $reservation->time->time_number }}</p>
         <p>コース名： {{ $reservation->course->course_name }}</p>
         <p>{{ $reservation-> name }} 様</p>
       </div>
