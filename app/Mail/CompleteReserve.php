@@ -10,6 +10,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class CompleteReserve extends Mailable
 {
     use Queueable, SerializesModels;
+    
+    private $reservation;
 
     /**
      * Create a new message instance.
@@ -28,7 +30,7 @@ class CompleteReserve extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.completeReserve')
+        return $this->text('emails.completeReserve')
                     ->subject('【手と手整骨院】ご予約が確定しました')
                     ->with(['reservation' => $this->reservation]);
     }
