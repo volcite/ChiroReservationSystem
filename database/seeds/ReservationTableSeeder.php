@@ -12,7 +12,7 @@ class ReservationTableSeeder extends Seeder
     public function run()
     {
         DB::table('reservations')->insert([
-            'reservation_date' => '2021-3-9',
+            'reservation_date' => '2021-12-15',
             'time_id' => 3,
             'course_id' => 3,
             'name' => '佐々木明子',
@@ -22,7 +22,7 @@ class ReservationTableSeeder extends Seeder
             'phone_number' => 123456789,
         ]);
         DB::table('reservations')->insert([
-            'reservation_date' => '2021-3-25',
+            'reservation_date' => '2021-12-22',
             'time_id' => 2,
             'course_id' => 3,
             'name' => '小林卓',
@@ -31,7 +31,5 @@ class ReservationTableSeeder extends Seeder
             'email' => 'kobayashi@kobayashi.com',
             'phone_number' => 123456789,
         ]);
-
-        $reservations = factory(App\Models\Reservation::class, 200)->create();
     }
 }
