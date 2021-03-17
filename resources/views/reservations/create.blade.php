@@ -59,12 +59,34 @@
                 <h4>③ご希望のコースをお選びください</h4>
                 <select class="form-control" id="course_id" name="course_id">
                     <option hidden>選択してください</option>
-                    @foreach($courses as $key=>$course)
-                        @if((!empty($request->course_id) && $request->course_id == $course->id) || old('course_id') == $course->id )
-                            <option value="{{ $course->id }}" selected>{{ $course->course_name }}</option>
-                        @else
-                            <option value="{{ $course->id }}">{{ $course->course_name }}</option>
-                        @endif
+                    @foreach($courses as $course)
+                        @switch($course->id)
+                            @case(1)    <!--全身調整 -->
+                            @case(2)    <!--骨盤ゆがみ -->
+                                <option value="{{ $course->id }}" @if(old('course_id')== $course->id) selected  @endif>
+                                    {{ $course->course_name }} {{ $course->base_price }}円(初回{{ $course->another_price }}円)
+                                </option>
+                                @break
+                            @case(3)    <!--リフトアップ -->
+                                <option value="{{ $course->id }}"  @if(old('course_id')== $course->id) selected  @endif>
+                                    {{ $course->course_name }} 30分{{ $course->another_price }}円
+                                </option>
+                                @break
+                            @case(4)    <!--ダイエット -->
+                                <option value="{{ $course->id }}" @if(old('course_id')== $course->id) selected  @endif>
+                                    {{ $course->course_name }} 体験{{ $course->another_price }}円
+                                </option>
+                                @break
+                            @case(8)   <!--その他 -->
+                                <option value="{{ $course->id }}" @if(old('course_id')== $course->id) selected  @endif>
+                                    {{ $course->course_name }}
+                                </option>
+                                @break
+                            @default    <!--慢性系 -->
+                                <option value="{{ $course->id }}" @if(old('course_id')== $course->id) selected  @endif>
+                                    {{ $course->course_name }} {{ $course->base_price }}円
+                                </option>
+                        @endswitch
                     @endforeach
                 </select>
                 <span class="text-danger help-block">{{$errors->first('course_id')}}</span>
