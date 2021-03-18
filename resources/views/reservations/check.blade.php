@@ -15,25 +15,7 @@
             <h4>②ご予約コース</h4>
             @foreach($courses as $key=>$course)
                 @if($course->id == $reservation["course_id"])
-                    <h5 class="ml-3">
-                        {{$course->course_name}}
-                        @switch($course->id)
-                            @case(1)    <!--全身調整 -->
-                            @case(2)    <!--骨盤ゆがみ -->
-                                {{ $course->base_price }}円(初回{{ $course->another_price }}円)
-                                @break
-                            @case(3)    <!--リフトアップ -->
-                                30分{{ $course->another_price }}円
-                                @break
-                            @case(4)    <!--ダイエット -->
-                                体験{{ $course->another_price }}円
-                                @break
-                            @case(8)   <!--その他 -->
-                                @break
-                            @default    <!--慢性系 -->
-                                {{ $course->base_price }}円
-                        @endswitch
-                    </h5>
+                    <h5 class="ml-3">{{$course->course_name}}</h5>
                 @endif
             @endforeach
         </div>
