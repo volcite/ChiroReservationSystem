@@ -64,9 +64,45 @@
                 <option hidden>選択してください</option>
                 @foreach($courses as $key=>$course)
                 @if((!empty($reservationData["course_id"]) && $reservationData["course_id"] == $course->id))
-                <option value="{{ $course->id }}" selected>{{ $course->course_name }}</option>
+                <option value="{{ $course->id }}" selected>
+                    {{ $course->course_name }}
+                    @switch($course->id)
+                            @case(1)    <!--全身調整 -->
+                            @case(2)    <!--骨盤ゆがみ -->
+                                {{ $course->base_price }}円(初回{{ $course->another_price }}円)
+                                @break
+                            @case(3)    <!--リフトアップ -->
+                                30分{{ $course->another_price }}円
+                                @break
+                            @case(4)    <!--ダイエット -->
+                                体験{{ $course->another_price }}円
+                                @break
+                            @case(8)   <!--その他 -->
+                                @break
+                            @default    <!--慢性系 -->
+                                {{ $course->base_price }}円
+                        @endswitch
+                </option>
                 @else
-                <option value="{{ $course->id }}">{{ $course->course_name }}</option>
+                <option value="{{ $course->id }}">
+                    {{ $course->course_name }}
+                    @switch($course->id)
+                            @case(1)    <!--全身調整 -->
+                            @case(2)    <!--骨盤ゆがみ -->
+                                {{ $course->base_price }}円(初回{{ $course->another_price }}円)
+                                @break
+                            @case(3)    <!--リフトアップ -->
+                                30 分{{ $course->another_price }}円
+                                @break
+                            @case(4)    <!--ダイエット -->
+                                体験{{ $course->another_price }}円
+                                @break
+                            @case(8)   <!--その他 -->
+                                @break
+                            @default    <!--慢性系 -->
+                                {{ $course->base_price }}円
+                        @endswitch
+                </option>
                 @endif
                 @endforeach
             </select>
