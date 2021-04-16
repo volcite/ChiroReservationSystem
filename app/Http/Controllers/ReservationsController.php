@@ -284,7 +284,7 @@ class ReservationsController extends Controller
             session()->forget('phone_number');
 
             // メール送信
-            Mail::to($reservation)->send(new CompleteReserve($reservation));
+            Mail::to($reservation)->bcc('t-e-h-surf@yahoo.ne.jp')->send(new CompleteReserve($reservation));
             return view("reservations.confirm");
 
         } catch (\Exception $e) {
